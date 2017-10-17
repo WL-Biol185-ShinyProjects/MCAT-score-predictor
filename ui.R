@@ -11,7 +11,7 @@ fluidPage(
                   min = 118,
                   max = 132,
                   value = 125),
-      sliderInput("bins2",
+      sliderInput("carsScore",
                   "CARS Score",
                   min = 118,
                   max = 132,
@@ -28,7 +28,10 @@ fluidPage(
                   value = 125)
     ),
     mainPanel(
-      plotOutput("densityPlot")
+      fluidRow(
+        plotOutput("cpPlot"),
+        plotOutput("carsPlot")
+
     )
   )
-)
+))

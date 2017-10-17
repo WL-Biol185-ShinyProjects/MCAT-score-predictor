@@ -12,16 +12,24 @@ library(tidyverse)
   #  hist(x, breaks = bins, col = 'darkgray', border = 'white')
 #  })
 #}"""
-
+#CP distribution plot
 function(input, output) {
   
-  output$densityPlot <- renderPlot({
+  output$cpPlot <- renderPlot({
     
     
     #filtering input score, plotting dist of real score
     MCAT_clean_data %>%
       filter(FL1.CP == input$cpScore) %>%
       ggplot(aes(Real.CP)) + geom_density()
-
+    
   })
+    output$carsPlot <- renderPlot({
+      #filtering input score, plotting dist of real score
+      MCAT_clean_data %>%
+        filter(FL1.CARS == input$carsScore) %>%
+        ggplot(aes(Real.CARS)) + geom_density()
+
+    })
+    
 }
