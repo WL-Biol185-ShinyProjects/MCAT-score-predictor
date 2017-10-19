@@ -63,4 +63,5 @@ function(input, output) {
         filter(FL1.PS == input$psScore)
       median(filterTablecp$Real.CP) + median(filterTableCARS$Real.CARS) + median(filterTablebb$Real.BB) + median(filterTableps$Real.PS)
     })   
+    
 }
