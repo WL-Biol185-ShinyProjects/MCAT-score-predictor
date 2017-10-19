@@ -32,4 +32,24 @@ function(input, output) {
 
     })
     
+    output$bbPlot <- renderPlot({
+      MCAT_clean_data %>%
+        filter(FL1.BB == input$bbScore) %>%
+        ggplot(aes(Real.BB)) + geom_density()
+    })
+    
+    output$psPlot <- renderPlot({
+      MCAT_clean_data %>%
+        filter(FL1.PS == input$psScore) %>%
+        ggplot(aes(Real.PS)) + geom_density()
+    })
+    
+    output$tsText <- renderText({
+      filtertable <- MCAT_clean_data %>%
+        filter(FL1.CP == input$cpScore) %>%
+        filter(FL1.CARS == input$carsScore)
+      median(filtertable$Real.CP) + median(filtertable$Real.CARS)
+        
+    })
+    
 }

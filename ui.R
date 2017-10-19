@@ -16,12 +16,12 @@ fluidPage(
                   min = 118,
                   max = 132,
                   value = 125),
-      sliderInput("bins3",
+      sliderInput("bbScore",
                   "Biology Score",
                   min = 118,
                   max = 132,
                   value = 125),
-      sliderInput("bins4",
+      sliderInput("psScore",
                   "Psych and Sociology Score",
                   min = 118,
                   max = 132,
@@ -30,7 +30,10 @@ fluidPage(
     mainPanel(
       fluidRow(
         plotOutput("cpPlot"),
-        plotOutput("carsPlot")
+        plotOutput("carsPlot"),
+        plotOutput("bbPlot"),
+        plotOutput("psPlot"),
+        textOutput("tsText")
 
     )
   )
