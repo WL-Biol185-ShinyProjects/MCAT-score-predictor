@@ -44,12 +44,23 @@ function(input, output) {
         ggplot(aes(Real.PS)) + geom_density()
     })
     
-    output$tsText <- renderText({
-      filtertable <- MCAT_clean_data %>%
-        filter(FL1.CP == input$cpScore) %>%
-        filter(FL1.CARS == input$carsScore)
-      median(filtertable$Real.CP) + median(filtertable$Real.CARS)
-        
-    })
+  #  output$tsText <- renderText({
+   #   filtertable <- MCAT_clean_data %>%
+    #    filter(FL1.CP == input$cpScore) %>%
+     #   filter(FL1.CARS == input$carsScore)
+      #median(filtertable$Real.CP) + median(filtertable$Real.CARS)
     
+        
+#    })
+    output$tsText <- renderText({
+      filterTablecp <- MCAT_clean_data %>%
+        filter(FL1.CP == input$cpScore)
+      filterTableCARS <- MCAT_clean_data %>%
+        filter(FL1.CARS == input$carsScore)
+      filterTablebb <- MCAT_clean_data %>%
+        filter(FL1.BB == input$bbScore)
+      filterTableps <- MCAT_clean_data %>%
+        filter(FL1.PS == input$psScore)
+      median(filterTablecp$Real.CP) + median(filterTableCARS$Real.CARS) + median(filterTablebb$Real.BB) + median(filterTableps$Real.PS)
+    })   
 }
