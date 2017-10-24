@@ -1,5 +1,5 @@
 
-practiceScorePredictor <- function(examType)
+practiceScorePredictor <- function(input, output)
   filterTablecp <- MCAT_clean_data %>%
     filter(examType.CP == input$cpScore)
   filterTableCARS <- MCAT_clean_data %>%
