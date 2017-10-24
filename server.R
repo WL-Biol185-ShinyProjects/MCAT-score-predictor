@@ -1,18 +1,10 @@
 library(shiny)
 library(ggplot2)
 library(tidyverse)
+library(dplyr)
 #source("score predictor.R")
 
-#function(input, output) {
-  
-  #output$distPlot <- renderPlot({
-    
- #   x <- faithful[,2]
- #   bins <- seq(min(x), max(x), length.out = input$bins + 1)
-    
-  #  hist(x, breaks = bins, col = 'darkgray', border = 'white')
-#  })
-#}"""
+
 #CP distribution plot
 function(input, output) {
   
@@ -20,9 +12,16 @@ function(input, output) {
     
     
     #filtering input score, plotting dist of real score
-    MCAT_clean_data %>%
+    #MCAT_clean_data %>%
+     # filter(FL1.CP == input$cpScore) %>%
+      #gather("subsection", "score", 2:5) %>%
+      #ggplot(aes(subsection, score)) + geom_boxplot()
+   
+     MCAT_clean_data %>%
+      bind_rows(transmute(Real.CP == Real.CP, FL1.CP == FL1.CP)) %>%
       filter(FL1.CP == input$cpScore) %>%
-      ggplot(aes(Real.CP)) + geom_density()
+      gather("subsection", "score", 1) %>%
+      ggplot(aes(subsection, score)) + geom_boxplot()
     
   })
     output$carsPlot <- renderPlot({
@@ -45,14 +44,8 @@ function(input, output) {
         ggplot(aes(Real.PS)) + geom_density()
     })
     
-  #  output$tsText <- renderText({
-   #   filtertable <- MCAT_clean_data %>%
-    #    filter(FL1.CP == input$cpScore) %>%
-     #   filter(FL1.CARS == input$carsScore)
-      #median(filtertable$Real.CP) + median(filtertable$Real.CARS)
     
-        
-#    })
+
     output$tsText <- renderText({
       filterTablecp <- MCAT_clean_data %>%
         filter(FL1.CP == input$cpScore)
