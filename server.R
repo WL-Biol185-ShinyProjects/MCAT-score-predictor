@@ -17,12 +17,18 @@ function(input, output) {
       #gather("subsection", "score", 2:5) %>%
       #ggplot(aes(subsection, score)) + geom_boxplot()
    
-     MCAT_clean_data %>%
-      bind_rows(transmute(Real.CP == Real.CP, FL1.CP == FL1.CP)) %>%
-      filter(FL1.CP == input$cpScore) %>%
-      gather("subsection", "score", 1) %>%
-      ggplot(aes(subsection, score)) + geom_boxplot()
+  
+      bind_rows(
+        CPtable <- transmute(MCAT_clean_data, Real.CP = Real.CP, FL1.CP = FL1.CP) %>%
+        filter(FL1.CP == input$cpScore) %>%
+        gather("subsection", "score", 1))
+        
+        CPtable$subsectionreal <- factor(CPtable$subsection)
+       
+        
     
+      #ggplot(aes(CPtable$subsectionreal, CPtable$score)) + geom_boxplot()
+      ggplot(CPtable, aes(subsectionreal, score)) + geom_boxplot()
   })
     output$carsPlot <- renderPlot({
       #filtering input score, plotting dist of real score
