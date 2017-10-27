@@ -33,8 +33,8 @@ function(input, output) {
         
  MainTable <- bind_rows(CP.CARS.Table, BB.PS.Table)
  
- MainTable$subsectionfactor <- factor(MainTable$subsection)
- ggplot(MainTable, aes(subsectionfactor, score)) + geom_boxplot()
+ MainTable$Section <- factor(MainTable$subsection)
+ ggplot(MainTable, aes(Section, score)) + geom_boxplot() + ylim(118, 132)
     
     
         
