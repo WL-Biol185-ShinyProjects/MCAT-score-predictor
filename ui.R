@@ -29,10 +29,7 @@ fluidPage(
     ),
     mainPanel(
       fluidRow(
-        plotOutput("cpPlot"),
-        plotOutput("carsPlot"),
-        plotOutput("bbPlot"),
-        plotOutput("psPlot"),
+        plotOutput("BoxPlot"),
         textOutput("tsText")
 
     )

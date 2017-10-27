@@ -8,48 +8,38 @@ library(dplyr)
 #CP distribution plot
 function(input, output) {
   
-  output$cpPlot <- renderPlot({
+  output$BoxPlot <- renderPlot({
     
-    
-    #filtering input score, plotting dist of real score
-    #MCAT_clean_data %>%
-     # filter(FL1.CP == input$cpScore) %>%
-      #gather("subsection", "score", 2:5) %>%
-      #ggplot(aes(subsection, score)) + geom_boxplot()
-   
   
-      bind_rows(
+      CP.CARS.Table <-bind_rows(
         CPtable <- transmute(MCAT_clean_data, Real.CP = Real.CP, FL1.CP = FL1.CP) %>%
         filter(FL1.CP == input$cpScore) %>%
+        gather("subsection", "score", 1), 
+    
+        CARStable <- transmute(MCAT_clean_data, Real.CARS = Real.CARS, FL1.CARS = FL1.CARS) %>%
+        filter(FL1.CARS == input$carsScore) %>%
         gather("subsection", "score", 1))
         
-        CPtable$subsectionreal <- factor(CPtable$subsection)
-       
-        
-    
-      #ggplot(aes(CPtable$subsectionreal, CPtable$score)) + geom_boxplot()
-      ggplot(CPtable, aes(subsectionreal, score)) + geom_boxplot()
-  })
-    output$carsPlot <- renderPlot({
-      #filtering input score, plotting dist of real score
-      MCAT_clean_data %>%
-        filter(FL1.CARS == input$carsScore) %>%
-        ggplot(aes(Real.CARS)) + geom_density()
-
-    })
-    
-    output$bbPlot <- renderPlot({
-      MCAT_clean_data %>%
+      
+      BB.PS.Table <- bind_rows(
+        BBtable<- transmute(MCAT_clean_data, Real.BB = Real.BB, FL1.BB = FL1.BB) %>%
         filter(FL1.BB == input$bbScore) %>%
-        ggplot(aes(Real.BB)) + geom_density()
-    })
-    
-    output$psPlot <- renderPlot({
-      MCAT_clean_data %>%
+        gather("subsection", "score", 1),
+        
+        PStable <- transmute(MCAT_clean_data, Real.PS = Real.PS, FL1.PS = FL1.PS) %>%
         filter(FL1.PS == input$psScore) %>%
-        ggplot(aes(Real.PS)) + geom_density()
-    })
+        gather("subsection", "score", 1))
+      
+        
+ MainTable <- bind_rows(CP.CARS.Table, BB.PS.Table)
+ 
+ MainTable$subsectionfactor <- factor(MainTable$subsection)
+ ggplot(MainTable, aes(subsectionfactor, score)) + geom_boxplot()
     
+    
+        
+  })
+   
     
 
     output$tsText <- renderText({
