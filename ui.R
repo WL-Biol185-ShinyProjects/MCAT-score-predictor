@@ -30,7 +30,8 @@ fluidPage(
     mainPanel(
       fluidRow(
         plotOutput("BoxPlot"),
-        textOutput("tsText")
+        textOutput("tsText"),
+        textOutput("tsTextFL2")
 
     )
   )

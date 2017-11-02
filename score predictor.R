@@ -1,22 +1,23 @@
-
 practiceScorePredictor <- function(examType)
   
 {
-  CPtest <- paste0(exam, ".CP")
+  CPtest <- paste0(examType, ".CP")
   filterTablecp <- MCAT_clean_data %>%
-    filter(CPtest == input$cpScore)
- 
-  carstest <- paste0(exam, ".CARS")
-  filterTablecars<- MCAT_clean_data %>%
-    filter(carstest == input$carsScore)
+    filter(MCAT_clean_data[CPtest] == input$cpScore)
+  # filtercol <- MCAT_clean_data[CPtest]
+  #filterTablecp <- filter(filtercol == input$cpScore)
   
-  bbtest <- paste0(exam, ".BB")
+  carstest <- paste0(examType, ".CARS")
+  filterTablecars <- MCAT_clean_data %>%
+    filter(MCAT_clean_data[carstest] == input$carsScore)
+  
+  bbtest <- paste0(examType, ".BB")
   filterTablebb <- MCAT_clean_data %>%
-    filter(bbtest == input$bbScore)
+    filter(MCAT_clean_data[bbtest] == input$bbScore)
   
-  pstest <- paste0(exam, ".PS")
+  pstest <- paste0(examType, ".PS")
   filterTableps <- MCAT_clean_data %>%
-    filter(pstest == input$psScore)
-  median(filterTablecp$Real.CP) + median(filterTableCARS$Real.CARS) + median(filterTablebb$Real.BB) + median(filterTableps$Real.PS)
+    filter(MCAT_clean_data[pstest] == input$psScore)
+  median(filterTablecp$Real.CP) + median(filterTablecars$Real.CARS) + median(filterTablebb$Real.BB) + median(filterTableps$Real.PS)
   
-  }
+}
