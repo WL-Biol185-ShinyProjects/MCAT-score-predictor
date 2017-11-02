@@ -2,7 +2,7 @@ library(shiny)
 library(ggplot2)
 library(tidyverse)
 library(dplyr)
-#source("score predictor.R")
+source("score predictor.R")
 
 
 #CP distribution plot
