@@ -19,7 +19,6 @@ function(input, output) {
         CARStable <- transmute(MCAT_clean_data, Real.CARS = Real.CARS, FL1.CARS = FL1.CARS) %>%
         filter(FL1.CARS == input$carsScore) %>%
         gather("subsection", "score", 1))
-        
       
       BB.PS.Table <- bind_rows(
         BBtable<- transmute(MCAT_clean_data, Real.BB = Real.BB, FL1.BB = FL1.BB) %>%
