@@ -19,12 +19,17 @@ fluidPage(
                br()
         ),
       
+      tabPanel("How does this work?", verbatimTextOutput("How does this work?")),
+      
+          p("Our predictor works by"),
+          br()
+      ),
+      
+
       tabPanel("Scores", verbatimTextOutput("Scores"),
   
-               sidebarLayout
-               (
-                 sidebarPanel
-                 (
+               sidebarLayout(
+                 sidebarPanel(
                    sliderInput("cpScore",
                                "Chem and Phys Score",
                                min = 118,
@@ -47,15 +52,11 @@ fluidPage(
                                value = 125)
                  ),
                  
-                 mainPanel
-                 (
-                  fluidRow
-                   (
+                 mainPanel(
+                  fluidRow(
                      plotOutput("BoxPlot"),
                      textOutput("tsText")
                    ) 
                 )
     ))
-    
-    
-  ))
+)
