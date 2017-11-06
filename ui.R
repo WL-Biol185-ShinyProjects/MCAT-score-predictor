@@ -30,9 +30,7 @@ fluidPage(
   ),
     mainPanel(
       fluidRow(
-        plotOutput("BoxPlot"),
-        textOutput("tsText"),
-        textOutput("tsTextFL2"),
+        
         
   navbarPage("",
              
@@ -56,7 +54,10 @@ fluidPage(
       ),
       
 
-      tabPanel("Scores", verbatimTextOutput("Scores")
+      tabPanel("Scores", verbatimTextOutput("Scores"),
+               plotOutput("BoxPlot"),
+               textOutput("tsText"),
+               textOutput("tsTextFL2")
   
                
     ))
