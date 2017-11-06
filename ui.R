@@ -26,12 +26,13 @@ fluidPage(
                   min = 118,
                   max = 132,
                   value = 125)
-    ),
+    
+  ),
     mainPanel(
       fluidRow(
         plotOutput("BoxPlot"),
         textOutput("tsText"),
-        textOutput("tsTextFL2")
+        textOutput("tsTextFL2"),
         
   navbarPage("",
              
@@ -94,3 +95,4 @@ fluidPage(
 
 )
 )
+
