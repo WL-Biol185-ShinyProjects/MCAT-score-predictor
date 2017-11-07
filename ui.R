@@ -47,17 +47,18 @@ fluidPage(
                br()
         ),
       
-      tabPanel("How does this work?", verbatimTextOutput("How does this work?")),
-      
-          p("Our predictor works by"),
-          br()
-      ),
-      
-
-      tabPanel("Scores", verbatimTextOutput("Scores"),
+      tabPanel("Predict My Score", verbatimTextOutput("Predict My Score"),
+               br(),
                plotOutput("BoxPlot"),
                textOutput("tsText"),
                textOutput("tsTextFL2")
+      
+          
+      ),
+      
+
+      tabPanel("About", verbatimTextOutput("About"))
+      
   
                
     ))
