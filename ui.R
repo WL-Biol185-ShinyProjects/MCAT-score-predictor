@@ -1,5 +1,23 @@
 library(shiny)
 
+sliderCreator <- function(examType) {
+  inputSlider(examType, "CP", "Chem and Phys Score")
+  inputSlider(examType, "CARS", "CARS Score")
+  inputSlider(examType, "BB", "Bio and Biochem Score")
+  inputSlider(examType, "PS", "Psych and Soc Score")
+  
+}
+
+inputSlider <- function(examType, subsection, subName){
+  sliderName <- paste0(examType, subsection)
+  sliderInput(sliderName,
+              subName,
+              min = 118,
+              max = 132,
+              value = 125)
+    
+}
+
 fluidPage(
   
   titlePanel("MCAT Score Predictor"),
@@ -26,6 +44,7 @@ fluidPage(
       
       tabPanel("Predict My Score", verbatimTextOutput("Predict My Score"),
                  sidebarPanel(
+                 #  sliderCreator("FL1")
                    sliderInput("cpScore",
                                "Chem and Phys Score",
                                min = 118,
@@ -45,11 +64,15 @@ fluidPage(
                                "Psych and Sociology Score",
                                min = 118,
                                max = 132,
-                               value = 125)), 
+                               value = 125)
+             #      inputSlider("FL1", "CP", "Chem and Phys")
+                   ),
                mainPanel(
                 plotOutput("BoxPlot"),
                 textOutput("tsText"),
-                textOutput("tsTextFL2"))
+                textOutput("tsTextFL2")
+              #  sliderCreator("FL1"))
+               )
       
           
       ),
