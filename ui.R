@@ -17,14 +17,17 @@ fluidPage(
                   plot of the actual test scores that correlate to provide you a predicted score within 2 points in either
                   direction."),
                br()
-        ),
+              ),
       
-      tabPanel("How does this work?", verbatimTextOutput("How does this work?")),
       
-          p("Our predictor works by"),
-          br()
-      ),
+      tabPanel("How does this work?", verbatimTextOutput("How does this work?"),
       
+              p("Our predictor works by comparing the subsection score that you input to the list of matching scores on the 
+                same test and subsection that we have crowd-sourced. Then we took all of the real exam scores for that subsection
+                (within plus or minus 2 points) and printed out a corresponding box plot. Use the data table below to see how we 
+                filtered your scores to get your estimated real score."),
+              br()
+              ),
 
       tabPanel("Scores", verbatimTextOutput("Scores"),
   
@@ -59,4 +62,4 @@ fluidPage(
                    ) 
                 )
     ))
-)
+))
