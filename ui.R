@@ -2,7 +2,7 @@ library(shiny)
 library(shinythemes)
 
 fluidPage(
-  theme = shinytheme("cerulean"),
+  theme = shinytheme("superhero"),
   titlePanel("MCAT Score Predictor"),
   
     mainPanel(
