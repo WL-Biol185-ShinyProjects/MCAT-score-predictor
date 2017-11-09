@@ -1,4 +1,4 @@
-library(shiny)
+ library(shiny)
 library(ggplot2)
 library(tidyverse)
 library(dplyr)
@@ -7,6 +7,30 @@ source("score predictor.R")
 
 #CP distribution plot
 function(input, output) {
+  
+  practiceScorePredictor <- function(examType)
+    
+  {
+    CPtest <- paste0(examType, ".CP")
+    filterTablecp <- MCAT_clean_data %>%
+      filter(MCAT_clean_data[CPtest] == input$cpScore)
+    
+    carstest <- paste0(examType, ".CARS")
+    filterTablecars <- MCAT_clean_data %>%
+      filter(MCAT_clean_data[carstest] == input$carsScore)
+    
+    bbtest <- paste0(examType, ".BB")
+    filterTablebb <- MCAT_clean_data %>%
+      filter(MCAT_clean_data[bbtest] == input$bbScore)
+    
+    pstest <- paste0(examType, ".PS")
+    filterTableps <- MCAT_clean_data %>%
+      filter(MCAT_clean_data[pstest] == input$psScore)
+    median(filterTablecp$Real.CP) + median(filterTablecars$Real.CARS) + median(filterTablebb$Real.BB) + median(filterTableps$Real.PS)
+    
+  }
+  
+
   
   output$BoxPlot <- renderPlot({
     
@@ -42,15 +66,20 @@ function(input, output) {
     
 
     output$tsText <- renderText({
-      filterTablecp <- MCAT_clean_data %>%
-        filter(FL1.CP == input$cpScore)
-      filterTableCARS <- MCAT_clean_data %>%
-        filter(FL1.CARS == input$carsScore)
-      filterTablebb <- MCAT_clean_data %>%
-        filter(FL1.BB == input$bbScore)
-      filterTableps <- MCAT_clean_data %>%
-        filter(FL1.PS == input$psScore)
-      median(filterTablecp$Real.CP) + median(filterTableCARS$Real.CARS) + median(filterTablebb$Real.BB) + median(filterTableps$Real.PS)
+      practiceScorePredictor("FL1")
+     # filterTablecp <- MCAT_clean_data %>%
+       # filter(FL1.CP == input$cpScore)
+    #  filterTableCARS <- MCAT_clean_data %>%
+     #   filter(FL1.CARS == input$carsScore)
+    #  filterTablebb <- MCAT_clean_data %>%
+    #    filter(FL1.BB == input$bbScore)
+    #  filterTableps <- MCAT_clean_data %>%
+    #    filter(FL1.PS == input$psScore)
+   #   median(filterTablecp$Real.CP) + median(filterTableCARS$Real.CARS) + median(filterTablebb$Real.BB) + median(filterTableps$Real.PS)
     })   
+    output$tsTextFL2 <- renderText({
+      practiceScorePredictor("FL2")
+      
+    })
     
 }

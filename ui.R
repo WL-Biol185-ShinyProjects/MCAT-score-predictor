@@ -1,9 +1,32 @@
 library(shiny)
 
+sliderCreator <- function(examType) {
+  inputSlider(examType, "CP", "Chem and Phys Score")
+  inputSlider(examType, "CARS", "CARS Score")
+  inputSlider(examType, "BB", "Bio and Biochem Score")
+  inputSlider(examType, "PS", "Psych and Soc Score")
+  
+}
+
+inputSlider <- function(examType, subsection, subName){
+  sliderName <- paste0(examType, subsection)
+  sliderInput(sliderName,
+              subName,
+              min = 118,
+              max = 132,
+              value = 125)
+    
+}
+
 fluidPage(
   
   titlePanel("MCAT Score Predictor"),
   
+  
+    mainPanel(
+      fluidRow(
+        
+        
   navbarPage("",
              
       tabPanel("Home", verbatimTextOutput("Home"),
@@ -19,6 +42,7 @@ fluidPage(
                br()
               ),
       
+<<<<<<< HEAD
       
       tabPanel("How does this work?", verbatimTextOutput("How does this work?"),
       
@@ -32,7 +56,11 @@ fluidPage(
       tabPanel("Scores", verbatimTextOutput("Scores"),
   
                sidebarLayout(
+=======
+      tabPanel("Predict My Score", verbatimTextOutput("Predict My Score"),
+>>>>>>> 4790d8635f0fefcc928e84e3dbfa2443a37fda4e
                  sidebarPanel(
+                 #  sliderCreator("FL1")
                    sliderInput("cpScore",
                                "Chem and Phys Score",
                                min = 118,
@@ -53,13 +81,32 @@ fluidPage(
                                min = 118,
                                max = 132,
                                value = 125)
-                 ),
-                 
-                 mainPanel(
-                  fluidRow(
-                     plotOutput("BoxPlot"),
-                     textOutput("tsText")
-                   ) 
-                )
+             #      inputSlider("FL1", "CP", "Chem and Phys")
+                   ),
+               mainPanel(
+                plotOutput("BoxPlot"),
+                textOutput("tsText"),
+                textOutput("tsTextFL2")
+              #  sliderCreator("FL1"))
+               )
+      
+          
+      ),
+      
+
+      tabPanel("About", verbatimTextOutput("About"))
+      
+  
+               
     ))
+<<<<<<< HEAD
 ))
+=======
+)
+
+)
+
+
+
+
+>>>>>>> 4790d8635f0fefcc928e84e3dbfa2443a37fda4e
