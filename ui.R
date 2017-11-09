@@ -1,4 +1,5 @@
 library(shiny)
+library(shinythemes)
 
 sliderCreator <- function(examType) {
   inputSlider(examType, "CP", "Chem and Phys Score")
@@ -19,7 +20,7 @@ inputSlider <- function(examType, subsection, subName){
 }
 
 fluidPage(
-  
+  theme = shinytheme("cerulean"),
   titlePanel("MCAT Score Predictor"),
   
   
@@ -34,31 +35,20 @@ fluidPage(
                img(src = "mcat exam picture.png", height = 450, width = 450, align = "center"),
                br(),
                br(),
-               p("Welcome to our MCAT Score Predictor! Our goal is to use a conglomeration of volunteered
-                  scores from the internet community via Reddit(link). Our predictor takes your scores on the subsections
-                  on a variety of practice tests and compares them to comparable reported scores. Then we provide a box 
-                  plot of the actual test scores that correlate to provide you a predicted score within 2 points in either
-                  direction."),
+               p("Welcome to our MCAT Score Predictor!"),
+               br(),
+               p("We have created an interactive score predictor that uses crowdsourced data 
+                  reported by members of the /r/MCAT community on reddit which can be found here:"), 
+               a("https://www.reddit.com/r/Mcat/"), 
+               p("Our App generates a predicted
+                  score, by taking your practice test score, filtering the crowdsourced data for all the users that got the same practice 
+                 test score, averaging the value of their actual score on the real test by section, and adding them together for a predicted total score."),
                br()
-              ),
-      
-<<<<<<< HEAD
-      
-      tabPanel("How does this work?", verbatimTextOutput("How does this work?"),
-      
-              p("Our predictor works by comparing the subsection score that you input to the list of matching scores on the 
-                same test and subsection that we have crowd-sourced. Then we took all of the real exam scores for that subsection
-                (within plus or minus 2 points) and printed out a corresponding box plot. Use the data table below to see how we 
-                filtered your scores to get your estimated real score."),
-              br()
-              ),
 
-      tabPanel("Scores", verbatimTextOutput("Scores"),
-  
-               sidebarLayout(
-=======
+      ),
+      
       tabPanel("Predict My Score", verbatimTextOutput("Predict My Score"),
->>>>>>> 4790d8635f0fefcc928e84e3dbfa2443a37fda4e
+               
                  sidebarPanel(
                  #  sliderCreator("FL1")
                    sliderInput("cpScore",
@@ -94,19 +84,23 @@ fluidPage(
       ),
       
 
-      tabPanel("About", verbatimTextOutput("About"))
+      tabPanel("About", verbatimTextOutput("About"),
+               br(),
+               h1("About"),
+               
+               p("Greetings from Alex, Ron, and Deepthi"),
+               p("We hope that you have found our score predictor app to be useful. Hundreds of hours of research, data analysis, and coding went into this project, and we are incredibly proud of the final product. We just wanted to provide a little background on what motivated us to build a score predictor. In our own preparation for the MCAT, Ron and I were incredibly frustrated with the lack of resources available for monitoring our study progress. What practice score is good enough to reach my target score? How much can I realistically improve on test day? The new MCAT is long, expensive, and weighs into Medical School admission decision heavily, so we thought these questions were worth answering."),
+               br(),
+               p("A quick word of caution: Predicting the future is a murky business. Sometimes the weatherman forecasts sunny skies and it rains. We don't want you to put too much faith in our score predictor. We did the best that we could, but human beings don't always behave predictably. Test anxiety, family emergencies and mood can all affect your performance on test day. We therefore ask that you proceed cautiously with our prediction. It's only our best guess as to what you will score, and ultimately the ball is in your court on test day."),
+               br(),
+               p("Finally, we want to thank Dr. Whitworth. We completed this WebApp as our final project in his Bio-185 Big Data class, and he was integral in helping us learn R, trouble-shooting bugs in our app, and providing useful feedback along the way."), 
+               br()
+      )
       
   
                
     ))
-<<<<<<< HEAD
-))
-=======
-)
 
 )
 
-
-
-
->>>>>>> 4790d8635f0fefcc928e84e3dbfa2443a37fda4e
+)
