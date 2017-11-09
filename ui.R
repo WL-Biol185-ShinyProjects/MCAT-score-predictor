@@ -1,4 +1,5 @@
 library(shiny)
+library(shinythemes)
 
 sliderCreator <- function(examType) {
   inputSlider(examType, "CP", "Chem and Phys Score")
@@ -19,7 +20,7 @@ inputSlider <- function(examType, subsection, subName){
 }
 
 fluidPage(
-  
+  theme = shinytheme("cerulean"),
   titlePanel("MCAT Score Predictor"),
   
     mainPanel(
@@ -98,12 +99,6 @@ fluidPage(
   
                
     ))
-)
 
-)
-
-
-
-
-
+))
 
