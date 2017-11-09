@@ -1,16 +1,10 @@
 library(shiny)
 library(shinythemes)
 
-sliderCreator <- function(examType) {
-  inputSlider(examType, "CP", "Chem and Phys Score")
-  inputSlider(examType, "CARS", "CARS Score")
-  inputSlider(examType, "BB", "Bio and Biochem Score")
-  inputSlider(examType, "PS", "Psych and Soc Score")
-  
-}
+
 
 inputSlider <- function(examType, subsection, subName){
-  sliderName <- paste0(examType, subsection)
+  sliderName <- paste0(subsection, "Score")
   sliderInput(sliderName,
               subName,
               min = 118,
@@ -53,28 +47,10 @@ fluidPage(
       tabPanel("Predict My Score", verbatimTextOutput("Predict My Score"),
 
                  sidebarPanel(
-                 #  sliderCreator("FL1")
-                   sliderInput("cpScore",
-                               "Chem and Phys Score",
-                               min = 118,
-                               max = 132,
-                               value = 125),
-                   sliderInput("carsScore",
-                               "CARS Score",
-                               min = 118,
-                               max = 132,
-                               value = 125),
-                   sliderInput("bbScore",
-                               "Biology Score",
-                               min = 118,
-                               max = 132,
-                               value = 125),
-                   sliderInput("psScore",
-                               "Psych and Sociology Score",
-                               min = 118,
-                               max = 132,
-                               value = 125)
-             #      inputSlider("FL1", "CP", "Chem and Phys")
+                   inputSlider("FL1", "cp", "Chem and Phys Score"),
+                   inputSlider("FL1", "cars", "CARS Score"),
+                   inputSlider("FL1", "bb", "Biology Score"),
+                   inputSlider("FL1", "ps", "Psych and Sociology Score")
                    ),
                mainPanel(
                 plotOutput("BoxPlot"),
