@@ -23,6 +23,11 @@ fluidPage(
                p("Our App generates a predicted
                   score, by taking your practice test score, filtering the crowdsourced data for all the users that got the same practice 
                  test score, averaging the value of their actual score on the real test by section, and adding them together for a predicted total score."),
+               p("A link to the raw data can be accessed here:"),
+               a("https://docs.google.com/spreadsheets/d/1JDrmJ1Aa0uvpUovylNvelmBaX_fQj_bhcQ7SVbf5o-M/edit?usp=sharing"),
+               br(),
+               p("To help us make our score predictor even better, we encourage you to complete the score report AFTER you take the real MCAT and obtain your score. The link is provided below:"),
+               a("https://docs.google.com/forms/d/e/1FAIpQLSdkZy9lZI2f8TuuA6GL9U2afXUrS1Segc2oYlJvExrxYbGqoQ/viewform?c=0&w=1&usp=send_form"),
                br()
         ),
       
