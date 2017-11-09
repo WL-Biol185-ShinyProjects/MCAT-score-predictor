@@ -72,7 +72,9 @@ fluidPage(
                    ),
                mainPanel(
                 plotOutput("BoxPlot"),
+                strong("Predicted Score based on AAMC Full Length #1:"),
                 textOutput("tsText"),
+                strong("Predicted Score based on AAMC Full Length #2:"),
                 textOutput("tsTextFL2")
               #  sliderCreator("FL1"))
                )
