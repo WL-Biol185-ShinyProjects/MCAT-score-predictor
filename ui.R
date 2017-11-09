@@ -23,12 +23,12 @@ fluidPage(
         
   navbarPage("",
              
-      tabPanel("Home", verbatimTextOutput("Home"),
+      tabPanel("Home", verbatimTextOutput("Home"), 
       
+               p("Welcome to our MCAT Score Predictor!"),
+               br(),
                img(src = "mcat exam picture.png", height = 450, width = 450, align = "center"),
                br(),
-               br(),
-               p("Welcome to our MCAT Score Predictor!"),
                br(),
                p("We have created an interactive score predictor that uses crowdsourced data 
                   reported by members of the /r/MCAT community on reddit which can be found here:"), 
@@ -40,7 +40,7 @@ fluidPage(
                a("https://docs.google.com/spreadsheets/d/1JDrmJ1Aa0uvpUovylNvelmBaX_fQj_bhcQ7SVbf5o-M/edit?usp=sharing"),
                br(),
                p("To help us make our score predictor even better, we encourage you to complete the score report AFTER you take the real MCAT and obtain your score. The link is provided below:"),
-               a("https://docs.google.com/forms/d/e/1FAIpQLSdkZy9lZI2f8TuuA6GL9U2afXUrS1Segc2oYlJvExrxYbGqoQ/viewform?c=0&w=1&usp=send_form"),
+               a("https://docs.google.com/forms/d/e/1FAIpQLSdkZy9lZI2f8TuuA6GL9U2afXUrS1Segc2oYlJvExrxYbGqoQ/viewform?c=0&w=1&usp=send_??form"),
                br()
         ),
       
@@ -70,7 +70,7 @@ fluidPage(
                br(),
                h1("About"),
 
-              p("Greetings from Alex, Ron, and Deepthie"),
+              p("Greetings from Alex, Ron, and Deepthi"),
               p("We hope that you have found our score predictor app to be useful. Hundreds of hours of research, data analysis, and coding went into this project, and we are incredibly proud of the final product. We just wanted to provide a little background on what motivated us to build a score predictor. In our own preparation for the MCAT, Ron and I were incredibly frustrated with the lack of resources available for monitoring our study progress. What practice score is good enough to reach my target score? How much can I realistically improve on test day? The new MCAT is long, expensive, and weighs into Medical School admission decision heavily, so we thought these questions were worth answering."),
               p("A quick word of caution: Predicting the future is a murky business. Sometimes the weatherman forecasts sunny skies and it rains. We don't want you to put too much faith in our score predictor. We did the best that we could, but human beings don't always behave predictably. Test anxiety, family emergencies and mood can all affect your performance on test day. We therefore ask that you proceed cautiously with our prediction. It's only our best guess as to what you will score, and ultimately the ball is in your court on test day."),
               br(),
