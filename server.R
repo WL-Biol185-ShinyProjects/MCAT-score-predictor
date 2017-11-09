@@ -67,7 +67,6 @@ function(input, output) {
 
     output$tsText <- renderText({
       practiceScorePredictor("FL1")
-     # filterTablecp <- MCAT_clean_data %>%
        # filter(FL1.CP == input$cpScore)
     #  filterTableCARS <- MCAT_clean_data %>%
      #   filter(FL1.CARS == input$carsScore)
