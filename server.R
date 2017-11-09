@@ -15,6 +15,8 @@ function(input, output) {
     CPtest <- paste0(examType, ".CP")
     filterTablecp <- MCAT_clean_data %>%
       filter(MCAT_clean_data[CPtest] == input$cpScore)
+   # filtercol <- MCAT_clean_data[CPtest]
+    #filterTablecp <- filter(filtercol == input$cpScore)
     
     carstest <- paste0(examType, ".CARS")
     filterTablecars <- MCAT_clean_data %>%
@@ -30,8 +32,6 @@ function(input, output) {
     median(filterTablecp$Real.CP) + median(filterTablecars$Real.CARS) + median(filterTablebb$Real.BB) + median(filterTableps$Real.PS)
     
   }
-  
-
   
   output$BoxPlot <- renderPlot({
     
@@ -68,7 +68,6 @@ function(input, output) {
 
     output$tsText <- renderText({
       practiceScorePredictor("FL1")
-     # filterTablecp <- MCAT_clean_data %>%
        # filter(FL1.CP == input$cpScore)
     #  filterTableCARS <- MCAT_clean_data %>%
      #   filter(FL1.CARS == input$carsScore)
