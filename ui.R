@@ -46,13 +46,18 @@ fluidPage(
 
                selectInput("Practice Test", "Select Practice Test:", c("AAMC Full Length Test #1", "AAMC Full Length Test #2")),
                
+              
+              uiOutput("slider"),
+              
                
-                 sidebarPanel(
-                   inputSlider("FL1", "cp", "Chem and Phys Score"),
-                   inputSlider("FL1", "cars", "CARS Score"),
-                   inputSlider("FL1", "bb", "Biology Score"),
-                   inputSlider("FL1", "ps", "Psych and Sociology Score")
-                   ),
+                #conditionalPanel(condition = "input.Practice Test == 'AAMC Full Length Test #2'",
+                 #sidebarPanel(
+              
+                  #inputSlider("FL1", "cars", "CARS Score"),
+                   #inputSlider("FL1", "bb", "Biology Score"),
+                   #inputSlider("FL1", "ps", "Psych and Sociology Score")
+                   #)
+                #),
                mainPanel(
                 plotOutput("BoxPlot"),
                 strong("Predicted Score based on AAMC Full Length #1:"),

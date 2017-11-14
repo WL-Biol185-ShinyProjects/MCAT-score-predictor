@@ -14,7 +14,7 @@ practiceScorePredictor <- function(examType)
   bbtest <- paste0(examType, ".BB")
   filterTablebb <- MCAT_clean_data %>%
     filter(MCAT_clean_data[bbtest] == input$bbScore)
-  
+
   pstest <- paste0(examType, ".PS")
   filterTableps <- MCAT_clean_data %>%
     filter(MCAT_clean_data[pstest] == input$psScore)

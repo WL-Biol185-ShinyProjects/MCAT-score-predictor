@@ -13,23 +13,35 @@ function(input, output) {
     
   {
     CPtest <- paste0(examType, ".CP")
+    useSliderCp <- paste0(examType, "cp")
     filterTablecp <- MCAT_clean_data %>%
-      filter(MCAT_clean_data[CPtest] == input$cpScore)
-   # filtercol <- MCAT_clean_data[CPtest]
-    #filterTablecp <- filter(filtercol == input$cpScore)
+      filter(MCAT_clean_data[CPtest] == input[[useSliderCp]])
     
     carstest <- paste0(examType, ".CARS")
+    useSliderCars <- paste0(examType, "cars")
     filterTablecars <- MCAT_clean_data %>%
-      filter(MCAT_clean_data[carstest] == input$carsScore)
+      filter(MCAT_clean_data[carstest] == input[[useSliderCars]])
     
     bbtest <- paste0(examType, ".BB")
+    useSliderBb <- paste0(examType, "bb")
     filterTablebb <- MCAT_clean_data %>%
-      filter(MCAT_clean_data[bbtest] == input$bbScore)
+      filter(MCAT_clean_data[bbtest] == input[[useSliderBb]])
     
     pstest <- paste0(examType, ".PS")
+    useSliderPs <- paste0(examType, "ps")
     filterTableps <- MCAT_clean_data %>%
-      filter(MCAT_clean_data[pstest] == input$psScore)
+      filter(MCAT_clean_data[pstest] == input[[useSliderPs]])
     median(filterTablecp$Real.CP) + median(filterTablecars$Real.CARS) + median(filterTablebb$Real.BB) + median(filterTableps$Real.PS)
+    
+  }
+  
+  inputSlider <- function(examType, subsection, subName){
+    sliderName <- paste0(examType, subsection)
+    sliderInput(sliderName,
+                subName,
+                min = 118,
+                max = 132,
+                value = 125)
     
   }
   
@@ -38,20 +50,20 @@ function(input, output) {
   
       CP.CARS.Table <-bind_rows(
         CPtable <- transmute(MCAT_clean_data, Real.CP = Real.CP, FL1.CP = FL1.CP) %>%
-        filter(FL1.CP == input$cpScore) %>%
+        filter(FL1.CP == input$FL1cp) %>%
         gather("subsection", "score", 1), 
     
         CARStable <- transmute(MCAT_clean_data, Real.CARS = Real.CARS, FL1.CARS = FL1.CARS) %>%
-        filter(FL1.CARS == input$carsScore) %>%
+        filter(FL1.CARS == input$FL1cars) %>%
         gather("subsection", "score", 1))
       
       BB.PS.Table <- bind_rows(
         BBtable<- transmute(MCAT_clean_data, Real.BB = Real.BB, FL1.BB = FL1.BB) %>%
-        filter(FL1.BB == input$bbScore) %>%
+        filter(FL1.BB == input$FL1bb) %>%
         gather("subsection", "score", 1),
         
         PStable <- transmute(MCAT_clean_data, Real.PS = Real.PS, FL1.PS = FL1.PS) %>%
-        filter(FL1.PS == input$psScore) %>%
+        filter(FL1.PS == input$FL1ps) %>%
         gather("subsection", "score", 1))
       
         
@@ -79,6 +91,28 @@ function(input, output) {
     })   
     output$tsTextFL2 <- renderText({
       practiceScorePredictor("FL2")
+      
+    })
+    
+    output$slider <- renderUI({
+      if (input$`Practice Test` == "AAMC Full Length Test #1"){
+        sidebarPanel(
+          inputSlider("FL1", "cp", "Chem and Phys Score"),
+          inputSlider("FL1", "cars", "CARS Score"),
+          inputSlider("FL1", "bb", "Biology Score"),
+          inputSlider("FL1", "ps", "Psych and Sociology Score")
+        )
+       }
+      else if (input$`Practice Test` == "AAMC Full Length Test #2"){
+        sidebarPanel(
+          inputSlider("FL2", "cp", "Chem and Phys Score"),
+          inputSlider("FL2", "cars", "CARS Score"),
+          inputSlider("FL2", "bb", "Biology Score"),
+          inputSlider("FL2", "ps", "Psych and Sociology Score")
+          
+        )
+      
+      }
       
     })
     
