@@ -48,11 +48,12 @@ fluidPage(
           
           tabPanel("Predict My Score", verbatimTextOutput("Predict My Score"),
                    
-                   selectInput("Practice Test", "Select Practice Test:", c("AAMC Full Length Test #1", "AAMC Full Length Test #2")),
+                   selectInput("Practice Test", "Select Practice Test:", c("None", "AAMC Full Length Test #1", "AAMC Full Length Test #2")),
                    uiOutput("slider"),
+                   uiOutput("Boxplot"),
                    
                    mainPanel(
-                     plotOutput("BoxPlot"),
+                    # plotOutput("BoxPlot"),
                      strong("Predicted Score based on AAMC Full Length #1:"),
                      textOutput("tsText"),
                      strong("Predicted Score based on AAMC Full Length #2:"),

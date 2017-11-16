@@ -45,7 +45,7 @@ function(input, output) {
     
   }
   
-  output$BoxPlot <- renderPlot({
+  output$BoxPlot1 <- renderPlot({
     
   
       CP.CARS.Table <-bind_rows(
@@ -75,6 +75,37 @@ function(input, output) {
     
         
   })
+  
+  output$BoxPlot2 <- renderPlot({
+    
+    
+    CP.CARS.Table <-bind_rows(
+      CPtable <- transmute(MCAT_clean_data, Real.CP = Real.CP, FL2.CP = FL2.CP) %>%
+        filter(FL2.CP == input$FL2cp) %>%
+        gather("subsection", "score", 1), 
+      
+      CARStable <- transmute(MCAT_clean_data, Real.CARS = Real.CARS, FL2.CARS = FL2.CARS) %>%
+        filter(FL2.CARS == input$FL2cars) %>%
+        gather("subsection", "score", 1))
+    
+    BB.PS.Table <- bind_rows(
+      BBtable<- transmute(MCAT_clean_data, Real.BB = Real.BB, FL2.BB = FL2.BB) %>%
+        filter(FL2.BB == input$FL2bb) %>%
+        gather("subsection", "score", 1),
+      
+      PStable <- transmute(MCAT_clean_data, Real.PS = Real.PS, FL2.PS = FL2.PS) %>%
+        filter(FL2.PS == input$FL2ps) %>%
+        gather("subsection", "score", 1))
+    
+    
+    MainTable <- bind_rows(CP.CARS.Table, BB.PS.Table)
+    
+    MainTable$Section <- factor(MainTable$subsection)
+    ggplot(MainTable, aes(Section, score)) + geom_boxplot() + ylim(118, 132)
+    
+    
+    
+  })
    
     
 
@@ -95,6 +126,8 @@ function(input, output) {
     })
     
     output$slider <- renderUI({
+      
+      
       if (input$`Practice Test` == "AAMC Full Length Test #1"){
         sidebarPanel(
           inputSlider("FL1", "cp", "Chem and Phys Score"),
@@ -102,6 +135,7 @@ function(input, output) {
           inputSlider("FL1", "bb", "Biology Score"),
           inputSlider("FL1", "ps", "Psych and Sociology Score")
         )
+
        }
       else if (input$`Practice Test` == "AAMC Full Length Test #2"){
         sidebarPanel(
@@ -115,5 +149,20 @@ function(input, output) {
       }
       
     })
+    
+    output$Boxplot <- renderUI({
+      
+      if (input$`Practice Test` == "AAMC Full Length Test #1"){
+        mainPanel(
+          plotOutput("BoxPlot1")
+        )}
+      else if (input$`Practice Test` == "AAMC Full Length Test #2"){
+        mainPanel(
+          plotOutput("BoxPlot2")
+        )
+      }
+        })
+    
+    
     
 }
