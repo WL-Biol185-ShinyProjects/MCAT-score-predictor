@@ -50,15 +50,15 @@ fluidPage(
                    
                    selectInput("Practice Test", "Select Practice Test:", c("None", "AAMC Full Length Test #1", "AAMC Full Length Test #2")),
                    uiOutput("slider"),
-                   uiOutput("Boxplot"),
+                   uiOutput("Boxplot")
                    
-                   mainPanel(
-                    # plotOutput("BoxPlot"),
-                     strong("Predicted Score based on AAMC Full Length #1:"),
-                     textOutput("tsText"),
-                     strong("Predicted Score based on AAMC Full Length #2:"),
-                     textOutput("tsTextFL2")
-                   )
+                   # mainPanel(
+                   #  # plotOutput("BoxPlot"),
+                   #   strong("Predicted Score based on AAMC Full Length #1:"),
+                   #   textOutput("tsText"),
+                   #   strong("Predicted Score based on AAMC Full Length #2:"),
+                   #   textOutput("tsTextFL2")
+                   # )
                    
           ),
           

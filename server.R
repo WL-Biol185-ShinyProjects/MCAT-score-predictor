@@ -125,6 +125,10 @@ function(input, output) {
       
     })
     
+    output$Error <- renderText({
+      "Please select a test to see a plot"
+    })
+    
     output$slider <- renderUI({
       
       
@@ -154,13 +158,21 @@ function(input, output) {
       
       if (input$`Practice Test` == "AAMC Full Length Test #1"){
         mainPanel(
-          plotOutput("BoxPlot1")
+          plotOutput("BoxPlot1"),
+          strong("Predicted Score based on AAMC Full Length #1:"),
+          textOutput("tsText")
         )}
       else if (input$`Practice Test` == "AAMC Full Length Test #2"){
         mainPanel(
-          plotOutput("BoxPlot2")
+          plotOutput("BoxPlot2"),
+          strong("Predicted Score based on AAMC Full Length #2:"),
+          textOutput("tsTextFL2")
         )
       }
+      else
+        mainPanel(
+          textOutput("Error")
+        )
         })
     
     
