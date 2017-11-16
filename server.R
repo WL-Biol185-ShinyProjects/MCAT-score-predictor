@@ -176,10 +176,10 @@ function(input, output) {
         })
     output$secondData <- renderUI({
       if (input$'Practice Test' == "AAMC Full Length Test #1"){
-        selectInput("Practice Test", h2("Please Select a Practice Test:"), c("None", "AAMC Full Length Test #2"))
+        selectInput("Practice Test", h4("Please Select a Practice Test:"), c("None", "AAMC Full Length Test #2"))
       }
       else if (input$'Practice Test' == "AAMC Full Length Test #2"){
-        selectInput("Practice Test", h2("Please Select a Practice Test:"), c("None", "AAMC Full Length Test #1"))
+        selectInput("Practice Test", h4("Please Select a Practice Test:"), c("None", "AAMC Full Length Test #1"))
       }
     })
     
