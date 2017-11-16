@@ -58,7 +58,18 @@ fluidPage(
                      textOutput("tsText"),
                      strong("Predicted Score based on AAMC Full Length #2:"),
                      textOutput("tsTextFL2")
+                   ),
+                   
+                   mainPanel(
+                    br(),
+                    h2("How to Read a Boxplot:"),
+                    p("The authors are aware that a boxplot is not the easiest plot to read if you have never seen such a plot before. Therefore we would like
+                     to provide a brief tutorial to explain:"),
+                    br()
+                     
                    )
+               
+                  
                    
           ),
           
