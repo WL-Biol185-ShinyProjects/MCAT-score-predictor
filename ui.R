@@ -50,7 +50,8 @@ fluidPage(
                    
                    selectInput("Practice Test", "Select Practice Test:", c("None", "AAMC Full Length Test #1", "AAMC Full Length Test #2")),
                    uiOutput("slider"),
-                   uiOutput("Boxplot")
+                   uiOutput("Boxplot"),
+                   uiOutput("secondData")
                    
                    # mainPanel(
                    #  # plotOutput("BoxPlot"),
