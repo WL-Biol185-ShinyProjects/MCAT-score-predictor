@@ -48,11 +48,25 @@ fluidPage(
           
           tabPanel("Predict My Score", verbatimTextOutput("Predict My Score"),
                    
-                   selectInput("Practice Test", "Select Practice Test:", c("None", "AAMC Full Length Test #1", "AAMC Full Length Test #2")),
+                   selectInput("Practice Test", h2("Please select a test:"), c("None", "AAMC Full Length Test #1", "AAMC Full Length Test #2")),
                    uiOutput("slider"),
                    uiOutput("Boxplot"),
-                   uiOutput("secondData")
+
+                   uiOutput("secondData"),
+
                    
+                   mainPanel(
+                    br(),
+                    h2("How to Read a Boxplot:"),
+                    p("The authors are aware that a boxplot is not the easiest plot to read if you have never seen such a plot before. Therefore we would like
+                     to provide a brief tutorial to explain:"),
+                    br(),
+                    p(" The very dark line in the middle of each box plot represents the median of the data set. The top boundary and bottom boundary
+                      of the box represent the 75th and 25th percentile of the data set. The 'whiskers' of the box plot represent the minimum and 
+                      maximum of the given data set. Any points outside of the box represent outliers in the data set.")
+                     
+                   )
+
                    # mainPanel(
                    #  # plotOutput("BoxPlot"),
                    #   strong("Predicted Score based on AAMC Full Length #1:"),
@@ -60,6 +74,7 @@ fluidPage(
                    #   strong("Predicted Score based on AAMC Full Length #2:"),
                    #   textOutput("tsTextFL2")
                    # )
+
                    
           ),
           
