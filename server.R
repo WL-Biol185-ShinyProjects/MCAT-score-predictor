@@ -70,20 +70,21 @@ function(input, output) {
  MainTable <- bind_rows(CP.CARS.Table, BB.PS.Table)
  
  MainTable$Section <- factor(MainTable$subsection)
+ 
  cleanup <- theme(panel.grid.major = element_blank(),
                   panel.grid.minor = element_blank(),
                   panel.background = element_blank(),
                   axis.line = element_line(color = "black"))
                 
  
- MainTable$Section <- factor(MainTable$subsection)
+ MainTable$Section <- factor(MainTable$subsection, levels = c("Real.CP", "Real.CARS", "Real.BB", "Real.PS"))
  ggplot(MainTable, aes(Section, score)) + 
    geom_boxplot() + 
    ylim(118, 132) +
    xlab("Subsection") + 
    ylab("Scaled Score") + 
    cleanup +
-   scale_x_discrete(labels = c("BB", "CP", "CARS", "PS"))
+   scale_x_discrete(labels = c("CP", "CARS", "BB", "PS"))
  
 
   })
@@ -117,14 +118,14 @@ function(input, output) {
                      panel.background = element_blank(),
                      axis.line = element_line(color = "black"))
   
-    MainTable$Section <- factor(MainTable$subsection)
+    MainTable$Section <- factor(MainTable$subsection,  levels = c("Real.CP", "Real.CARS", "Real.BB", "Real.PS"))
     ggplot(MainTable, aes(Section, score)) + 
       geom_boxplot() + 
       ylim(118, 132) +
       xlab("Subsection") + 
       ylab("Scaled Score") + 
       cleanup +
-      scale_x_discrete(labels = c("BB", "CP", "CARS", "PS"))
+      scale_x_discrete(labels = c("CP", "CARS", "BB", "PS"))
                        
                        
       
