@@ -176,11 +176,51 @@ function(input, output) {
         })
     output$secondData <- renderUI({
       if (input$'Practice Test' == "AAMC Full Length Test #1"){
-        selectInput("Practice Test", h2("Please Select a Practice Test:"), c("None", "AAMC Full Length Test #2"))
+        selectInput("PT2", h2("Please Select a Practice Test:"), c("None", "AAMC Full Length Test #2"))
       }
-      else if (input$'Practice Test' == "AAMC Full Length Test #2"){
-        selectInput("Practice Test", h2("Please Select a Practice Test:"), c("None", "AAMC Full Length Test #1"))
+      else if (input$`Practice Test` == "AAMC Full Length Test #2"){
+        selectInput("PT2", h2("Please Select a Practice Test:"), c("None", "AAMC Full Length Test #1"))
       }
+   
+ 
+    })
+    
+    output$secondSP <- renderUI({
+      if (is.null(input$'PT2') == TRUE){
+      }
+        
+        
+      else if (input$'PT2' == "AAMC Full Length Test #1"){
+        sidebarPanel(
+          inputSlider("FL1", "cp", "Chem and Phys Score"),
+          inputSlider("FL1", "cars", "CARS Score"),
+          inputSlider("FL1", "bb", "Biology Score"),
+          inputSlider("FL1", "ps", "Psych and Sociology Score")
+        )
+       #  mainPanel(
+        #   plotOutput("BoxPlot1")
+        #   strong("Predicted Score based on AAMC Full Length #1:"),
+        #   textOutput("tsText")
+       #  )
+        
+      
+      }
+      # else if (input$'PT2' == "AAMC Full Length Test #2"){
+      #   sidebarPanel(
+      #     inputSlider("FL2", "cp", "Chem and Phys Score"),
+      #     inputSlider("FL2", "cars", "CARS Score"),
+      #     inputSlider("FL2", "bb", "Biology Score"),
+      #     inputSlider("FL2", "ps", "Psych and Sociology Score")
+      #     
+      #   )
+      #   mainPanel(
+      #     plotOutput("BoxPlot2"),
+      #     strong("Predicted Score based on AAMC Full Length #2:"),
+      #     textOutput("tsTextFL2")
+      #   )
+      #   
+      # }
+    
     })
     
     

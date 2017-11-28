@@ -53,6 +53,7 @@ fluidPage(
                    uiOutput("Boxplot"),
 
                    uiOutput("secondData"),
+                   uiOutput("secondSP"),
 
                    
                    mainPanel(
