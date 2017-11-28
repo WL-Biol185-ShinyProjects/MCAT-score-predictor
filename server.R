@@ -70,10 +70,22 @@ function(input, output) {
  MainTable <- bind_rows(CP.CARS.Table, BB.PS.Table)
  
  MainTable$Section <- factor(MainTable$subsection)
- ggplot(MainTable, aes(Section, score)) + geom_boxplot() + ylim(118, 132)
-    
-    
-        
+ cleanup <- theme(panel.grid.major = element_blank(),
+                  panel.grid.minor = element_blank(),
+                  panel.background = element_blank(),
+                  axis.line = element_line(color = "black"))
+                
+ 
+ MainTable$Section <- factor(MainTable$subsection)
+ ggplot(MainTable, aes(Section, score)) + 
+   geom_boxplot() + 
+   ylim(118, 132) +
+   xlab("Subsection") + 
+   ylab("Scaled Score") + 
+   cleanup +
+   scale_x_discrete(labels = c("BB", "CP", "CARS", "PS"))
+ 
+
   })
   
   output$BoxPlot2 <- renderPlot({
@@ -100,8 +112,23 @@ function(input, output) {
     
     MainTable <- bind_rows(CP.CARS.Table, BB.PS.Table)
     
+    cleanup <- theme(panel.grid.major = element_blank(),
+                     panel.grid.minor = element_blank(),
+                     panel.background = element_blank(),
+                     axis.line = element_line(color = "black"))
+  
     MainTable$Section <- factor(MainTable$subsection)
-    ggplot(MainTable, aes(Section, score)) + geom_boxplot() + ylim(118, 132)
+    ggplot(MainTable, aes(Section, score)) + 
+      geom_boxplot() + 
+      ylim(118, 132) +
+      xlab("Subsection") + 
+      ylab("Scaled Score") + 
+      cleanup +
+      scale_x_discrete(labels = c("BB", "CP", "CARS", "PS"))
+                       
+                       
+      
+    
     
     
     
@@ -176,6 +203,7 @@ function(input, output) {
         })
     output$secondData <- renderUI({
       if (input$'Practice Test' == "AAMC Full Length Test #1"){
+
         selectInput("PT2", h2("Please Select a Practice Test:"), c("None", "AAMC Full Length Test #2"))
       }
       else if (input$`Practice Test` == "AAMC Full Length Test #2"){
@@ -204,6 +232,12 @@ function(input, output) {
        #  )
         
       
+
+      #   selectInput("Practice Test", h4("Please Select a Practice Test:"), c("None", "AAMC Full Length Test #2"))
+      # }
+      # else if (input$'Practice Test' == "AAMC Full Length Test #2"){
+      #   selectInput("Practice Test", h4("Please Select a Practice Test:"), c("None", "AAMC Full Length Test #1"))
+
       }
       # else if (input$'PT2' == "AAMC Full Length Test #2"){
       #   sidebarPanel(
