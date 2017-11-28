@@ -73,8 +73,8 @@ function(input, output) {
  cleanup <- theme(panel.grid.major = element_blank(),
                   panel.grid.minor = element_blank(),
                   panel.background = element_blank(),
-                  axis.line = element_line(color = "black"),
-                  axis.text.x = element_text(angle = 5))
+                  axis.line = element_line(color = "black"))
+                
  
  MainTable$Section <- factor(MainTable$subsection)
  ggplot(MainTable, aes(Section, score)) + 
@@ -83,7 +83,7 @@ function(input, output) {
    xlab("Subsection") + 
    ylab("Scaled Score") + 
    cleanup +
-   scale_x_discrete(labels = c("Biology", "Chemistry and Physics", "Critical Reading and Analysis", "Physcology and Sociology"))
+   scale_x_discrete(labels = c("BB", "CP", "CARS", "PS"))
  
 
   })
@@ -115,8 +115,7 @@ function(input, output) {
     cleanup <- theme(panel.grid.major = element_blank(),
                      panel.grid.minor = element_blank(),
                      panel.background = element_blank(),
-                     axis.line = element_line(color = "black"),
-                     axis.text.x = element_text(angle = 5))
+                     axis.line = element_line(color = "black"))
   
     MainTable$Section <- factor(MainTable$subsection)
     ggplot(MainTable, aes(Section, score)) + 
@@ -125,7 +124,7 @@ function(input, output) {
       xlab("Subsection") + 
       ylab("Scaled Score") + 
       cleanup +
-      scale_x_discrete(labels = c("Biology", "Chemistry and Physics", "Critical Reading and Analysis", "Physcology and Sociology"))
+      scale_x_discrete(labels = c("BB", "CP", "CARS", "PS"))
                        
                        
       
