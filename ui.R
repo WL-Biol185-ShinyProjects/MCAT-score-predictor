@@ -69,11 +69,12 @@ fluidPage(
   
           ),
           
-          tabPanel("How to read a boxplot", verbatimTextOutput("How to read a boxplot"),
+          tabPanel("How to Read a boxplot", verbatimTextOutput("How to Read a boxplot"),
                    
                    mainPanel(
                      br(),
                      h2("How to Read a Boxplot:"),
+                     img(src = "boxplot-with-outliers.jpg", height = 450, width = 750, align = "center"),
                      p("The authors are aware that a boxplot is not the easiest plot to read if you have never seen such a plot before. Therefore we would like
                        to provide a brief tutorial to explain:"),
                      br(),
@@ -103,7 +104,7 @@ fluidPage(
                    p("We hope that you have found our score predictor app to be useful. Hundreds of hours of research, data analysis, and coding went into this project, and we are incredibly proud of the final product. We just wanted to provide a little background on what motivated us to build a score predictor. In our own preparation for the MCAT, Ron and I were incredibly frustrated with the lack of resources available for monitoring our study progress. What practice score is good enough to reach my target score? How much can I realistically improve on test day? The new MCAT is long, expensive, and weighs into Medical School admission decision heavily, so we thought these questions were worth answering."),
                    p("A quick word of caution: Predicting the future is a murky business. Sometimes the weatherman forecasts sunny skies and it rains. We don't want you to put too much faith in our score predictor. We did the best that we could, but human beings don't always behave predictably. Test anxiety, family emergencies and mood can all affect your performance on test day. We therefore ask that you proceed cautiously with our prediction. It's only our best guess as to what you will score, and ultimately the ball is in your court on test day."),
                    br(),
-                   p("Finally, we want to thank `Dr. Whitworth. We completed this WebApp as our final project in his Bio-185 Big Data class, and he was integral in helping us learn R, trouble-shooting bugs in our app, and providing useful feedback along the way."), 
+                   p("Finally, we want to thank Dr. Whitworth. We completed this WebApp as our final project in his Bio-185 Big Data class, and he was integral in helping us learn R, trouble-shooting bugs in our app, and providing useful feedback along the way."), 
                    br()
           )
      
