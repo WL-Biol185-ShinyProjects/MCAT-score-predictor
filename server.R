@@ -70,10 +70,22 @@ function(input, output) {
  MainTable <- bind_rows(CP.CARS.Table, BB.PS.Table)
  
  MainTable$Section <- factor(MainTable$subsection)
- ggplot(MainTable, aes(Section, score)) + geom_boxplot() + ylim(118, 132)
-    
-    
-        
+ cleanup <- theme(panel.grid.major = element_blank(),
+                  panel.grid.minor = element_blank(),
+                  panel.background = element_blank(),
+                  axis.line = element_line(color = "black"),
+                  axis.text.x = element_text(angle = 5))
+ 
+ MainTable$Section <- factor(MainTable$subsection)
+ ggplot(MainTable, aes(Section, score)) + 
+   geom_boxplot() + 
+   ylim(118, 132) +
+   xlab("Subsection") + 
+   ylab("Scaled Score") + 
+   cleanup +
+   scale_x_discrete(labels = c("Biology", "Chemistry and Physics", "Critical Reading and Analysis", "Physcology and Sociology"))
+ 
+
   })
   
   output$BoxPlot2 <- renderPlot({
@@ -100,8 +112,24 @@ function(input, output) {
     
     MainTable <- bind_rows(CP.CARS.Table, BB.PS.Table)
     
+    cleanup <- theme(panel.grid.major = element_blank(),
+                     panel.grid.minor = element_blank(),
+                     panel.background = element_blank(),
+                     axis.line = element_line(color = "black"),
+                     axis.text.x = element_text(angle = 5))
+  
     MainTable$Section <- factor(MainTable$subsection)
-    ggplot(MainTable, aes(Section, score)) + geom_boxplot() + ylim(118, 132)
+    ggplot(MainTable, aes(Section, score)) + 
+      geom_boxplot() + 
+      ylim(118, 132) +
+      xlab("Subsection") + 
+      ylab("Scaled Score") + 
+      cleanup +
+      scale_x_discrete(labels = c("Biology", "Chemistry and Physics", "Critical Reading and Analysis", "Physcology and Sociology"))
+                       
+                       
+      
+    
     
     
     
