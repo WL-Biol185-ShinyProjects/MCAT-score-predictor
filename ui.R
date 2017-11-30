@@ -1,31 +1,27 @@
 library(shiny)
 library(shinythemes)
 
-inputSlider <- function(examType, subsection, subName){
+inputSlider <- function(examType, subsection, subName)
+  {
   sliderName <- paste0(subsection, "Score")
   sliderInput(sliderName,
               subName,
               min = 118,
               max = 132,
               value = 125)
-  
-}
-
-fluidPage(
-  theme = shinytheme("superhero"),
-  titlePanel("Welcome to our MCAT Score Predictor!"),
-  
+  }
     mainPanel(
+      titlePanel("Welcome to our MCAT Score Predictor!"),
+      
       fluidRow(
-        
         navbarPage(
+          theme = shinytheme("superhero"),
           "", 
           inverse = TRUE,
-          header = tags$style(type = 'text/css', '.navbar { background-color: #8d8d9b;
+          header = tags$style(type = 'text/css', '.navbar {background-color: #969090;
                                                       font-family: Arial;
                                                       font-size: 18px;
-                                                      color: #94939b; }'),
-          
+                                                      color: #f9f9f9; }'),
           
           tabPanel("Home", verbatimTextOutput("Home"), 
                    
@@ -48,28 +44,17 @@ fluidPage(
           
           tabPanel("Predict My Score", verbatimTextOutput("Predict My Score"),
                    
-                   selectInput("Practice Test", h2("Please select a test:"), c("None", "AAMC Full Length Test #1", "AAMC Full Length Test #2")),
+                  selectInput("Practice Test", 
+                              h2("Please select a test:"), 
+                              c("None", "AAMC Full Length Test #1", "AAMC Full Length Test #2")),
                   
                   uiOutput("slider"),
                   uiOutput("Boxplot"),
+                  uiOutput("secondData")
 
-
-                   uiOutput("secondData"),
-                   uiOutput("secondSP")
-
-
-
-                   # mainPanel(
-                   #  # plotOutput("BoxPlot"),
-                   #   strong("Predicted Score based on AAMC Full Length #1:"),
-                   #   textOutput("tsText"),
-                   #   strong("Predicted Score based on AAMC Full Length #2:"),
-                   #   textOutput("tsTextFL2")
-                   # )
-  
           ),
           
-          tabPanel("How to Read a boxplot", verbatimTextOutput("How to Read a boxplot"),
+          tabPanel("How to Read a Boxplot", verbatimTextOutput("How to Read a Boxplot"),
                    
                    mainPanel(
                      br(),
@@ -77,18 +62,21 @@ fluidPage(
                      img(src = "boxplot-with-outliers.jpg", height = 450, width = 750, align = "center"),
                      p("The authors are aware that a boxplot is not the easiest plot to read if you have never seen such a plot before. Therefore we would like
                        to provide a brief tutorial to explain:"),
-                     br(),
-                     p(" The very dark line in the middle of each box plot represents the median of the data set. The top boundary and bottom boundary
-                       of the box represent the 75th and 25th percentile of the data set. The 'whiskers' of the box plot represent the minimum and
-                       maximum of the given data set. Any points outside of the box represent outliers in the data set.")
-           
+                     
+                     fluidRow(
+                      column(2,""),
+                      column(10, 
+                        p("The very dark line in the middle of each box plot represents the median of the data set. The top boundary and bottom boundary
+                        of the box represent the 75th and 25th percentile of the data set. The 'whiskers' of the box plot represent the minimum and
+                        maximum of the given data set. Any points outside of the box represent outliers in the data set."))
+                      )
+                   
                    )),
           
           
-          tabPanel("Help us be more accurate", verbatimTextOutput("Help us be more accurate"),
+          tabPanel("Help us be More Accurate", verbatimTextOutput("Help us be More Accurate"),
                    
-                   br(),
-                   p("To help us make our score predictor even better, we encourage you to complete the score report AFTER you take the real MCAT and obtain your score."), 
+                   h3("To help us make our score predictor even better, we encourage you to complete the score report AFTER you take the real MCAT and obtain your score."), 
                    tags$iframe(src = "https://docs.google.com/forms/d/e/1FAIpQLSdkZy9lZI2f8TuuA6GL9U2afXUrS1Segc2oYlJvExrxYbGqoQ/viewform?c=0&w=1&usp=send_??form",
                                width = 1000,
                                height = 1000),
@@ -107,8 +95,7 @@ fluidPage(
                    p("Finally, we want to thank Dr. Whitworth. We completed this WebApp as our final project in his Bio-185 Big Data class, and he was integral in helping us learn R, trouble-shooting bugs in our app, and providing useful feedback along the way."), 
                    br()
           )
-     
-    ))
+)
 
 ))
 
