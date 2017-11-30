@@ -51,6 +51,11 @@ inputSlider <- function(examType, subsection, subName)
                   uiOutput("slider"),
                   uiOutput("Boxplot"),
                   uiOutput("secondData")
+                  
+                  # tableOutput("table"),
+                  # output$table <- renderTable({
+                  #     head(datasetInput())
+                  #   })
 
           ),
           
@@ -59,17 +64,33 @@ inputSlider <- function(examType, subsection, subName)
                    mainPanel(
                      br(),
                      h2("How to Read a Boxplot:"),
-                     img(src = "boxplot-with-outliers.jpg", height = 450, width = 750, align = "center"),
-                     p("The authors are aware that a boxplot is not the easiest plot to read if you have never seen such a plot before. Therefore we would like
-                       to provide a brief tutorial to explain:"),
                      
                      fluidRow(
-                      column(2,""),
-                      column(10, 
-                        p("The very dark line in the middle of each box plot represents the median of the data set. The top boundary and bottom boundary
-                        of the box represent the 75th and 25th percentile of the data set. The 'whiskers' of the box plot represent the minimum and
-                        maximum of the given data set. Any points outside of the box represent outliers in the data set."))
-                      )
+                        column(6, 
+                               img(src = "boxplot-with-outliers.jpg", height = 450, width = 750, align = "center")),
+                        column(6,  
+                                  p("The authors are aware that a boxplot is not the easiest plot to read if you have never seen such a plot before. Therefore we would like
+                                  to provide a brief tutorial to explain:"),
+                                  br(),
+                                  p("The very dark line in the middle of each box plot represents the median of the data set. The top boundary and bottom boundary
+                                  of the box represent the 75th and 25th percentile of the data set. The 'whiskers' of the box plot represent the minimum and
+                                  maximum of the given data set. Any points outside of the box represent outliers in the data set.")
+                               )
+                        )
+                        
+                     
+                     
+                     # img(src = "boxplot-with-outliers.jpg", height = 450, width = 750, align = "center"),
+                     # p("The authors are aware that a boxplot is not the easiest plot to read if you have never seen such a plot before. Therefore we would like
+                     #   to provide a brief tutorial to explain:"),
+                     # 
+                     # fluidRow(
+                     #  column(2,""),
+                     #  column(10, 
+                     #    p("The very dark line in the middle of each box plot represents the median of the data set. The top boundary and bottom boundary
+                     #    of the box represent the 75th and 25th percentile of the data set. The 'whiskers' of the box plot represent the minimum and
+                     #    maximum of the given data set. Any points outside of the box represent outliers in the data set."))
+                     #  )
                    
                    )),
           
