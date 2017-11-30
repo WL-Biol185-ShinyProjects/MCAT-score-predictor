@@ -70,20 +70,21 @@ function(input, output) {
  MainTable <- bind_rows(CP.CARS.Table, BB.PS.Table)
  
  MainTable$Section <- factor(MainTable$subsection)
+ 
  cleanup <- theme(panel.grid.major = element_blank(),
                   panel.grid.minor = element_blank(),
                   panel.background = element_blank(),
                   axis.line = element_line(color = "black"))
                 
  
- MainTable$Section <- factor(MainTable$subsection)
+ MainTable$Section <- factor(MainTable$subsection, levels = c("Real.CP", "Real.CARS", "Real.BB", "Real.PS"))
  ggplot(MainTable, aes(Section, score)) + 
    geom_boxplot() + 
    ylim(118, 132) +
    xlab("Subsection") + 
    ylab("Scaled Score") + 
    cleanup +
-   scale_x_discrete(labels = c("BB", "CP", "CARS", "PS"))
+   scale_x_discrete(labels = c("CP", "CARS", "BB", "PS"))
  
 
   })
@@ -117,14 +118,14 @@ function(input, output) {
                      panel.background = element_blank(),
                      axis.line = element_line(color = "black"))
   
-    MainTable$Section <- factor(MainTable$subsection)
+    MainTable$Section <- factor(MainTable$subsection,  levels = c("Real.CP", "Real.CARS", "Real.BB", "Real.PS"))
     ggplot(MainTable, aes(Section, score)) + 
       geom_boxplot() + 
       ylim(118, 132) +
       xlab("Subsection") + 
       ylab("Scaled Score") + 
       cleanup +
-      scale_x_discrete(labels = c("BB", "CP", "CARS", "PS"))
+      scale_x_discrete(labels = c("CP", "CARS", "BB", "PS"))
                        
                        
       
@@ -202,13 +203,82 @@ function(input, output) {
         )
         })
     output$secondData <- renderUI({
-      if (input$'Practice Test' == "AAMC Full Length Test #1"){
-        selectInput("Practice Test", h4("Please Select a Practice Test:"), c("None", "AAMC Full Length Test #2"))
+      if (input$'Practice Test' == "None"){}
+      
+      else if (input$'Practice Test' == "AAMC Full Length Test #1"){
+
+        selectInput("PT2", h2("Please Select a Practice Test:"), c("None", "AAMC Full Length Test #2"))
       }
-      else if (input$'Practice Test' == "AAMC Full Length Test #2"){
-        selectInput("Practice Test", h4("Please Select a Practice Test:"), c("None", "AAMC Full Length Test #1"))
+      
+      else if (input$`Practice Test` == "AAMC Full Length Test #2"){
+        selectInput("PT2", h2("Please Select a Practice Test:"), c("None", "AAMC Full Length Test #1"))
       }
+   
+ 
     })
+    
+    output$secondSP <- renderUI({
+      if (is.null(input$'PT2') == TRUE){
+      }
+        
+        
+      else if (input$'PT2' == "AAMC Full Length Test #2"){
+        fluidRow(
+        sidebarPanel(
+          inputSlider("FL2", "cp", "Chem and Phys Score"),
+          inputSlider("FL2", "cars", "CARS Score"),
+          inputSlider("FL2", "bb", "Biology Score"),
+          inputSlider("FL2", "ps", "Psych and Sociology Score")
+        ),
+         mainPanel(
+           plotOutput("BoxPlot2"),
+           strong("Predicted Score based on AAMC Full Length #2:"),
+           textOutput("tsTextFL2")
+         )
+        )
+      }
+        else if (input$'PT2' == "AAMC Full Length Test #1"){
+          fluidRow(
+            sidebarPanel(
+              inputSlider("FL1", "cp", "Chem and Phys Score"),
+              inputSlider("FL1", "cars", "CARS Score"),
+              inputSlider("FL1", "bb", "Biology Score"),
+              inputSlider("FL1", "ps", "Psych and Sociology Score")
+            ),
+            mainPanel(
+              plotOutput("BoxPlot1"),
+              strong("Predicted Score based on AAMC Full Length #1:"),
+              textOutput("tsText")
+            )
+          )
+        }
+    })
+      
+      
+
+      #   selectInput("Practice Test", h4("Please Select a Practice Test:"), c("None", "AAMC Full Length Test #2"))
+      # }
+      # else if (input$'Practice Test' == "AAMC Full Length Test #2"){
+      #   selectInput("Practice Test", h4("Please Select a Practice Test:"), c("None", "AAMC Full Length Test #1"))
+
+      
+      # else if (input$'PT2' == "AAMC Full Length Test #2"){
+      #   sidebarPanel(
+      #     inputSlider("FL2", "cp", "Chem and Phys Score"),
+      #     inputSlider("FL2", "cars", "CARS Score"),
+      #     inputSlider("FL2", "bb", "Biology Score"),
+      #     inputSlider("FL2", "ps", "Psych and Sociology Score")
+      #     
+      #   )
+      #   mainPanel(
+      #     plotOutput("BoxPlot2"),
+      #     strong("Predicted Score based on AAMC Full Length #2:"),
+      #     textOutput("tsTextFL2")
+      #   )
+      #   
+      # }
+    
+    
     
     
     

@@ -51,6 +51,7 @@ inputSlider <- function(examType, subsection, subName)
                   uiOutput("slider"),
                   uiOutput("Boxplot"),
                   uiOutput("secondData")
+
           ),
           
           tabPanel("How to Read a Boxplot", verbatimTextOutput("How to Read a Boxplot"),
