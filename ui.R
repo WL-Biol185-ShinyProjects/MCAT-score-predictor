@@ -29,14 +29,16 @@ inputSlider <- function(examType, subsection, subName)
                    img(src = "mcat exam picture.png", height = 450, width = 450, align = "center"),
                    br(),
                    br(),
-                   p("We have created an interactive score predictor that uses crowdsourced data 
-                  reported by members of the /r/MCAT community on reddit which can be found here:"), 
-                   a("https://www.reddit.com/r/Mcat/"), 
-                   p("Our App generates a predicted
-                  score, by taking your practice test score, filtering the crowdsourced data for all the users that got the same practice 
-                 test score, averaging the value of their actual score on the real test by section, and adding them together for a predicted total score."),
+                   
+                   p("Our App generates a predicted score, by taking your practice test score, filtering the crowdsourced data for all the users that got the same practice 
+                      test score, averaging the value of their actual score on the real test by section, and adding them together for a predicted total score."),
+                   br(),
 
-                   p("A link to the raw data can be accessed here:"),
+                   p("We have created an interactive score predictor that uses crowdsourced data 
+                   reported by members of the /r/MCAT community on reddit which can be found here:"), 
+                   a("https://www.reddit.com/r/Mcat/"), 
+             
+                   p("The raw data can be accessed here:"),
                    a("https://docs.google.com/spreadsheets/d/1JDrmJ1Aa0uvpUovylNvelmBaX_fQj_bhcQ7SVbf5o-M/edit?usp=sharing"),
                    br()
                    
@@ -51,6 +53,11 @@ inputSlider <- function(examType, subsection, subName)
                   uiOutput("slider"),
                   uiOutput("Boxplot"),
                   uiOutput("secondData")
+                  
+                  # tableOutput("table"),
+                  # output$table <- renderTable({
+                  #     head(datasetInput())
+                  #   })
 
           ),
           
@@ -59,17 +66,18 @@ inputSlider <- function(examType, subsection, subName)
                    mainPanel(
                      br(),
                      h2("How to Read a Boxplot:"),
-                     img(src = "boxplot-with-outliers.jpg", height = 450, width = 750, align = "center"),
-                     p("The authors are aware that a boxplot is not the easiest plot to read if you have never seen such a plot before. Therefore we would like
-                       to provide a brief tutorial to explain:"),
                      
-                     fluidRow(
-                      column(2,""),
-                      column(10, 
-                        p("The very dark line in the middle of each box plot represents the median of the data set. The top boundary and bottom boundary
-                        of the box represent the 75th and 25th percentile of the data set. The 'whiskers' of the box plot represent the minimum and
-                        maximum of the given data set. Any points outside of the box represent outliers in the data set."))
-                      )
+                      img(src = "boxplot-with-outliers.jpg", height = 450, width = 650, align = "center"),
+                      p("The authors are aware that a boxplot is not the easiest plot to read if you have never seen such a plot before. Therefore we would like
+                        to provide a brief tutorial to explain:"),
+                     
+                      fluidRow(
+                       column(2,""),
+                       column(10,
+                         p("The very dark line in the middle of each box plot represents the median of the data set. The top boundary and bottom boundary
+                         of the box represent the 75th and 25th percentile of the data set. The 'whiskers' of the box plot represent the minimum and
+                         maximum of the given data set. Any points outside of the box represent outliers in the data set."))
+                       )
                    
                    )),
           
