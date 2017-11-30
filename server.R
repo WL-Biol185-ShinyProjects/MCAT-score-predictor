@@ -87,7 +87,7 @@ function(input, output) {
    cleanup +
    scale_x_discrete(labels = c("CP", "CARS", "BB", "PS"))+
    geom_text( aes(x = Section, y = score, label = score, 
-             size = 3, vjust = -1.5)
+             size = 3, vjust = -1.5))
  
  
 
