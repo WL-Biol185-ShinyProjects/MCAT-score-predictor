@@ -75,6 +75,7 @@ function(input, output) {
                   panel.grid.minor = element_blank(),
                   panel.background = element_blank(),
                   axis.line = element_line(color = "black"))
+ 
                 
  
  MainTable$Section <- factor(MainTable$subsection, levels = c("Real.CP", "Real.CARS", "Real.BB", "Real.PS"))
@@ -84,7 +85,10 @@ function(input, output) {
    xlab("Subsection") + 
    ylab("Scaled Score") + 
    cleanup +
-   scale_x_discrete(labels = c("CP", "CARS", "BB", "PS"))
+   scale_x_discrete(labels = c("CP", "CARS", "BB", "PS"))+
+   geom_text( aes(x = Section, y = score, label = score, 
+             size = 3, vjust = -1.5)
+ 
  
 
   })
