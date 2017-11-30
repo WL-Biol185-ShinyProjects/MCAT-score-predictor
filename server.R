@@ -82,14 +82,15 @@ function(input, output) {
 
  
  MainTable$Section <- factor(MainTable$subsection, levels = c("Real.CP", "Real.CARS", "Real.BB", "Real.PS"))
- ggplot(MainTable, aes(Section, score)) + 
+ ggplot(MainTable, aes(Section, score, fill = Section)) + 
    geom_boxplot() + 
    ylim(118, 132) +
    xlab("Subsection") + 
    ylab("Scaled Score") + 
    cleanup +
    scale_x_discrete(labels = c("CP", "CARS", "BB", "PS")) +
-   geom_text(data = median1, aes(label = score, y = score - 0.3))
+   geom_text(data = median1, aes(label = score, y = score - 0.3)) +
+   guides(fill = FALSE)
 
  
  
@@ -129,14 +130,16 @@ function(input, output) {
     
     median2 <- aggregate(score ~ Section, MainTable, median)
     
-    ggplot(MainTable, aes(Section, score)) + 
+    ggplot(MainTable, aes(Section, score, fill = Section)) + 
       geom_boxplot() + 
       ylim(118, 132) +
       xlab("Subsection") + 
       ylab("Scaled Score") + 
       cleanup +
       scale_x_discrete(labels = c("CP", "CARS", "BB", "PS")) +
-      geom_text(data = median2, aes(label = score, y = score - 0.3))
+      geom_text(data = median2, aes(label = score, y = score - 0.3)) +
+      guides(fill = FALSE) 
+
 
                        
       
