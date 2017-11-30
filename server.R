@@ -79,14 +79,7 @@ function(input, output) {
                   panel.grid.minor = element_blank(),
                   panel.background = element_blank(),
                   axis.line = element_line(color = "black"))
-<<<<<<< HEAD
 
- 
- 
-=======
- 
-                
->>>>>>> b129e392b06d5536275f79ae11b0976d5dd45978
  
  MainTable$Section <- factor(MainTable$subsection, levels = c("Real.CP", "Real.CARS", "Real.BB", "Real.PS"))
  ggplot(MainTable, aes(Section, score)) + 
@@ -95,14 +88,9 @@ function(input, output) {
    xlab("Subsection") + 
    ylab("Scaled Score") + 
    cleanup +
-<<<<<<< HEAD
    scale_x_discrete(labels = c("CP", "CARS", "BB", "PS")) +
-   geom_text(data = median1, aes(label = score, y = score + 0.3))
-=======
-   scale_x_discrete(labels = c("CP", "CARS", "BB", "PS"))+
-   geom_text( aes(x = Section, y = score, label = score, 
-             size = 3, vjust = -1.5))
->>>>>>> b129e392b06d5536275f79ae11b0976d5dd45978
+   geom_text(data = median1, aes(label = score, y = score - 0.3))
+
  
  
 
@@ -148,7 +136,7 @@ function(input, output) {
       ylab("Scaled Score") + 
       cleanup +
       scale_x_discrete(labels = c("CP", "CARS", "BB", "PS")) +
-      geom_text(data = median2, aes(label = score, y = score + 0.3))
+      geom_text(data = median2, aes(label = score, y = score - 0.3))
 
                        
       
