@@ -12,8 +12,7 @@ inputSlider <- function(examType, subsection, subName)
   }
     mainPanel(
       titlePanel("Welcome to our MCAT Score Predictor!"),
-      
-      fluidRow(
+    
         navbarPage(
           theme = shinytheme("superhero"),
           "", 
@@ -52,12 +51,9 @@ inputSlider <- function(examType, subsection, subName)
                   
                   uiOutput("slider"),
                   uiOutput("Boxplot"),
-                  uiOutput("secondData")
+                  uiOutput("secondData"),
                   
-                  # tableOutput("table"),
-                  # output$table <- renderTable({
-                  #     head(datasetInput())
-                  #   })
+                  tableOutput("table")
 
           ),
           
@@ -105,5 +101,5 @@ inputSlider <- function(examType, subsection, subName)
           )
 )
 
-))
+)
 

@@ -282,7 +282,8 @@ function(input, output) {
       #   
       # }
     
-    
+    output$table <- renderTable({MCAT_clean_data
+    })
     
     
     
