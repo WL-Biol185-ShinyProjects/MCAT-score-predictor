@@ -9,7 +9,7 @@ source("score predictor.R")
 #CP distribution plot
 function(input, output) {
   
-  practiceScorePredictor <- function(examType)
+  practiceScorePredictor <- function(examType, medianValues = FALSE)
     
   {
     CPtest <- paste0(examType, ".CP")
@@ -282,7 +282,13 @@ function(input, output) {
       #   
       # }
     
+   
     
+    
+    
+     output$median <- renderText({
+      practiceScorePredictor("FL1")
+    })
     
     
     

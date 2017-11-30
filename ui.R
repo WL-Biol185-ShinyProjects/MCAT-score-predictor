@@ -52,7 +52,9 @@ inputSlider <- function(examType, subsection, subName)
                   
                   uiOutput("slider"),
                   uiOutput("Boxplot"),
-                  uiOutput("secondData")
+                  #textOutput("median"),
+                  uiOutput("secondData"),
+                  uiOutput("secondSP")
                   
                   # tableOutput("table"),
                   # output$table <- renderTable({
