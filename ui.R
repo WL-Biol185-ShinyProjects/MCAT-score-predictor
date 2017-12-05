@@ -50,10 +50,9 @@ inputSlider <- function(examType, subsection, subName)
                               c("None", "AAMC Full Length Test #1", "AAMC Full Length Test #2")),
                   
                   uiOutput("slider"),
-                  uiOutput("Boxplot"),
                   uiOutput("secondData"),
-                  
-                  tableOutput("table")
+                  uiOutput("secondSP")
+
 
           ),
           
