@@ -73,7 +73,7 @@ function(input, output) {
  MainTable$Section <- factor(MainTable$subsection)
  
  
- median1 <- aggregate(score ~ Section, MainTable, median)
+ median1 <<- aggregate(score ~ Section, MainTable, median)
  
  
  cleanup <- theme(panel.grid.major = element_blank(),
@@ -269,7 +269,8 @@ function(input, output) {
     })
     
      output$table <- renderTable({
-       medianCP
+      median1
+       
     })
     
     
