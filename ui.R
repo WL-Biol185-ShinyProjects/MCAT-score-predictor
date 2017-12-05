@@ -51,15 +51,8 @@ inputSlider <- function(examType, subsection, subName)
                               c("None", "AAMC Full Length Test #1", "AAMC Full Length Test #2")),
                   
                   uiOutput("slider"),
-                  uiOutput("Boxplot"),
-                  #textOutput("median"),
                   uiOutput("secondData"),
                   uiOutput("secondSP")
-                  
-                  # tableOutput("table"),
-                  # output$table <- renderTable({
-                  #     head(datasetInput())
-                  #   })
 
           ),
           
