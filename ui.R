@@ -50,9 +50,9 @@ inputSlider <- function(examType, subsection, subName)
                               h2("Please select a test:"), 
                               c("None", "AAMC Full Length Test #1", "AAMC Full Length Test #2")),
                   
-                  uiOutput("slider"),
-                  uiOutput("secondData"),
-                  uiOutput("secondSP")
+                  uiOutput("test1UI"),
+                  uiOutput("secondDrop"),
+                  uiOutput("test2UI")
 
           ),
           
