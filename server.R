@@ -45,6 +45,9 @@ function(input, output) {
     }
     
     medianCP <<- median(filterTablecp$Real.CP)
+    medianCARS <<- median(filterTablecars$Real.CARS)
+    medianBB <<- median(filterTablebb$Real.BB)
+    medianPS <<- median(filterTableps$Real.PS)
     median(filterTablecp$Real.CP) + median(filterTablecars$Real.CARS) + median(filterTablebb$Real.BB) + median(filterTableps$Real.PS)
     
   }
@@ -129,20 +132,30 @@ function(input, output) {
     CP.CARS.Table <-bind_rows(
       CPtable <- transmute(MCAT_clean_data, Real.CP = Real.CP, FL2.CP = FL2.CP) %>%
         filter(FL2.CP == input$FL2cp) %>%
-        gather("subsection", "score", 1), 
+        gather("subsection", "score", 1),
+      if (nrow(CPtable) == 0) {
+        CPtable <- add_row(CPtable, "subsection" = "Real.CP", "score" = input$FL2cp)},
       
       CARStable <- transmute(MCAT_clean_data, Real.CARS = Real.CARS, FL2.CARS = FL2.CARS) %>%
         filter(FL2.CARS == input$FL2cars) %>%
-        gather("subsection", "score", 1))
+        gather("subsection", "score", 1),
+      if (nrow(CARStable) == 0) {
+        CARStable <- add_row(CARStable, "subsection" = "Real.CARS", "score" = input$FL2cars)}
+    )
     
     BB.PS.Table <- bind_rows(
       BBtable<- transmute(MCAT_clean_data, Real.BB = Real.BB, FL2.BB = FL2.BB) %>%
         filter(FL2.BB == input$FL2bb) %>%
         gather("subsection", "score", 1),
+      if (nrow(BBtable) == 0) {
+        BBtable <- add_row(BBtable, "subsection" = "Real.BB", "score" = input$FL2bb)},
       
       PStable <- transmute(MCAT_clean_data, Real.PS = Real.PS, FL2.PS = FL2.PS) %>%
         filter(FL2.PS == input$FL2ps) %>%
-        gather("subsection", "score", 1))
+        gather("subsection", "score", 1),
+      if (nrow(PStable) == 0) {
+        PStable <- add_row(PStable, "subsection" = "Real.PS", "score" = input$FL2ps)}
+    )
     
     
     MainTable <- bind_rows(CP.CARS.Table, BB.PS.Table)
@@ -228,7 +241,7 @@ function(input, output) {
                    textOutput("tsTextFL2")),
             column(3,
                    
-                   tableOutput("table")))
+                   tableOutput("table2")))
         
       }
       
@@ -288,17 +301,19 @@ function(input, output) {
                    textOutput("tsText")),
             column(3,
                    
-                   tableOutput("table2")))
+                   tableOutput("table")))
         }
     })
     
      output$table <- renderTable({
-       filterTablecp
-       #arrange(median1, c("Real.CP", "Real.CARS", "Real.BB", "Real.PS"))
-       
-       
+       medianTable <- tibble("Section" = c("CP", "CARS", "BB", "PS", "Total"), "Score" = c(medianCP, medianCARS, medianBB, medianPS, practiceScorePredictor("FL1")))
+
     })
     
+     output$table2 <- renderTable({
+       medianTable <- tibble("Section" = c("CP", "CARS", "BB", "PS", "Total"), "Score" = c(medianCP, medianCARS, medianBB, medianPS, practiceScorePredictor("FL2")))
+       
+     })
     
     
 }
