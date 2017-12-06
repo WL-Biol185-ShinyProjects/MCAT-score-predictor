@@ -14,23 +14,36 @@ function(input, output) {
   {
     CPtest <- paste0(examType, ".CP")
     useSliderCp <- paste0(examType, "cp")
-    filterTablecp <- MCAT_clean_data %>%
+    filterTablecp <<- MCAT_clean_data %>%
       filter(MCAT_clean_data[CPtest] == input[[useSliderCp]])
+    if (nrow(filterTablecp) == 0) {
+      filterTablecp <- add_row(filterTablecp, Real.CP = input[[useSliderCp]])
+    }
     
     carstest <- paste0(examType, ".CARS")
     useSliderCars <- paste0(examType, "cars")
     filterTablecars <- MCAT_clean_data %>%
       filter(MCAT_clean_data[carstest] == input[[useSliderCars]])
+    if (nrow(filterTablecars) == 0) {
+      filterTablecars <- add_row(filterTablecars, Real.CARS = input[[useSliderCars]])
+    }
     
     bbtest <- paste0(examType, ".BB")
     useSliderBb <- paste0(examType, "bb")
     filterTablebb <- MCAT_clean_data %>%
       filter(MCAT_clean_data[bbtest] == input[[useSliderBb]])
+    if (nrow(filterTablebb) == 0) {
+      filterTablebb <- add_row(filterTablebb, Real.BB = input[[useSliderBb]])
+    }
     
     pstest <- paste0(examType, ".PS")
     useSliderPs <- paste0(examType, "ps")
     filterTableps <- MCAT_clean_data %>%
       filter(MCAT_clean_data[pstest] == input[[useSliderPs]])
+    if (nrow(filterTableps) == 0) {
+      filterTableps <- add_row(filterTableps, Real.PS = input[[useSliderPs]])
+    }
+    
     medianCP <<- median(filterTablecp$Real.CP)
     median(filterTablecp$Real.CP) + median(filterTablecars$Real.CARS) + median(filterTablebb$Real.BB) + median(filterTableps$Real.PS)
     
@@ -52,20 +65,31 @@ function(input, output) {
       CP.CARS.Table <-bind_rows(
         CPtable <- transmute(MCAT_clean_data, Real.CP = Real.CP, FL1.CP = FL1.CP) %>%
         filter(FL1.CP == input$FL1cp) %>%
-        gather("subsection", "score", 1), 
+          gather("subsection", "score", 1),
+         if (nrow(CPtable) == 0) {
+           CPtable <- add_row(CPtable, "subsection" = "Real.CP", "score" = input$FL1cp)},
     
         CARStable <- transmute(MCAT_clean_data, Real.CARS = Real.CARS, FL1.CARS = FL1.CARS) %>%
         filter(FL1.CARS == input$FL1cars) %>%
-        gather("subsection", "score", 1))
+          gather("subsection", "score", 1),
+        if (nrow(CARStable) == 0) {
+          CARStable <- add_row(CARStable, "subsection" = "Real.CARS", "score" = input$FL1cars)}
+        
+        )
       
       BB.PS.Table <- bind_rows(
         BBtable<- transmute(MCAT_clean_data, Real.BB = Real.BB, FL1.BB = FL1.BB) %>%
         filter(FL1.BB == input$FL1bb) %>%
         gather("subsection", "score", 1),
+        if (nrow(BBtable) == 0) {
+          BBtable <- add_row(BBtable, "subsection" = "Real.BB", "score" = input$FL1bb)},
         
         PStable <- transmute(MCAT_clean_data, Real.PS = Real.PS, FL1.PS = FL1.PS) %>%
         filter(FL1.PS == input$FL1ps) %>%
-        gather("subsection", "score", 1))
+        gather("subsection", "score", 1),
+        if (nrow(PStable) == 0) {
+          PStable <- add_row(PStable, "subsection" = "Real.PS", "score" = input$FL1ps)}
+        )
       
         
  MainTable <- bind_rows(CP.CARS.Table, BB.PS.Table)
@@ -269,7 +293,9 @@ function(input, output) {
     })
     
      output$table <- renderTable({
-      median1
+       filterTablecp
+       #arrange(median1, c("Real.CP", "Real.CARS", "Real.BB", "Real.PS"))
+       
        
     })
     
