@@ -9,15 +9,85 @@ source("score predictor.R")
 #CP distribution plot
 function(input, output) {
   
+  # boxplotCreator <- function(examType)
+  # {
+  #   examCP <- paste0(examType, ".CP")
+  #   examCARS <- paste0(examType, ".CARS")
+  #   examBB <- paste0(examType, ".BB")
+  #   examPS <- paste0(examType, ".PS")
+  #   sliderCP <- paste0(examType, "cp")
+  #   sliderCARS <- paste0(examType, "cars")
+  #   sliderBB <- paste0(examType, "bb")
+  #   sliderPS <- paste0(examType, "ps")
+  #   
+  #   CP.CARS.Table <-bind_rows(
+  #     CPtable <- transmute(MCAT_clean_data, Real.CP = Real.CP, examCP = MCAT_clean_data[[examCP]]) %>%
+  #       na.omit(examCP) %>%
+  #       filter(examCP == input[[sliderCP]]) %>%
+  #       gather("subsection", "score", 1),
+  #      if (nrow(CPtable) == 0) {
+  #        CPtable <- add_row(CPtable, "subsection" = "Real.CP", "score" = input[[sliderCP]])},
+  # 
+  #      CARStable <- transmute(MCAT_clean_data, Real.CARS = Real.CARS, examCARS = MCAT_clean_data[[examCARS]]) %>%
+  #       na.omit(examCP) %>%
+  #        filter(examCARS == input[[sliderCARS]]) %>%
+  #        gather("subsection", "score", 1),
+  #      if (nrow(CARStable) == 0) {
+  #        CARStable <- add_row(CARStable, "subsection" = "Real.CARS", "score" = input[[sliderCP]])}
+  #   )
+  # 
+  #    BB.PS.Table <- bind_rows(
+  #      BBtable<- transmute(MCAT_clean_data, Real.BB = Real.BB, examBB = MCAT_clean_data[[examBB]]) %>%
+  #        na.omit(examCP) %>%
+  #        filter(examBB == input[[sliderBB]]) %>%
+  #       gather("subsection", "score", 1),
+  #     if (nrow(BBtable) == 0) {
+  #       BBtable <- add_row(BBtable, "subsection" = "Real.BB", "score" = input[[sliderBB]])},
+  # 
+  #     PStable <- transmute(MCAT_clean_data, Real.PS = Real.PS, examPS = MCAT_clean_data[[examPS]]) %>%
+  #       na.omit(examCP) %>%
+  #       filter(examPS == input[[sliderPS]]) %>%
+  #       gather("subsection", "score", 1),
+  #     if (nrow(PStable) == 0) {
+  #       PStable <- add_row(PStable, "subsection" = "Real.PS", "score" = input[[sliderPS]])}
+  #   )
+# 
+# 
+#     MainTable <- bind_rows(CP.CARS.Table, BB.PS.Table)
+# 
+#     cleanup <- theme(panel.grid.major = element_blank(),
+#                      panel.grid.minor = element_blank(),
+#                      panel.background = element_blank(),
+#                      axis.line = element_line(color = "black"))
+# 
+#     MainTable$Section <- factor(MainTable$subsection,  levels = c("Real.CP", "Real.CARS", "Real.BB", "Real.PS"))
+# 
+#     median2 <- aggregate(score ~ Section, MainTable, median)
+# 
+#     ggplot(MainTable, aes(Section, score, fill = Section)) +
+#       geom_boxplot() +
+#       ylim(118, 132) +
+#       xlab("Subsection") +
+#       ylab("Scaled Score") +
+#       cleanup +
+#       scale_x_discrete(labels = c("CP", "CARS", "BB", "PS")) +
+# 
+#       geom_text(data = median2, aes(label = score, y = score - 0.3)) +
+#       guides(fill = FALSE)
+#   }
+  
   practiceScorePredictor <- function(examType, medianValues = FALSE)
     
   {
-    CPtest <- paste0(examType, ".CP")
+    errorMessage <<- FALSE
+    CPtest <<- paste0(examType, ".CP")
     useSliderCp <- paste0(examType, "cp")
     filterTablecp <<- MCAT_clean_data %>%
       filter(MCAT_clean_data[CPtest] == input[[useSliderCp]])
     if (nrow(filterTablecp) == 0) {
+      errorMessage <<- TRUE
       filterTablecp <- add_row(filterTablecp, Real.CP = input[[useSliderCp]])
+      
     }
     
     carstest <- paste0(examType, ".CARS")
@@ -25,6 +95,7 @@ function(input, output) {
     filterTablecars <- MCAT_clean_data %>%
       filter(MCAT_clean_data[carstest] == input[[useSliderCars]])
     if (nrow(filterTablecars) == 0) {
+      errorMessage <<- TRUE
       filterTablecars <- add_row(filterTablecars, Real.CARS = input[[useSliderCars]])
     }
     
@@ -33,6 +104,7 @@ function(input, output) {
     filterTablebb <- MCAT_clean_data %>%
       filter(MCAT_clean_data[bbtest] == input[[useSliderBb]])
     if (nrow(filterTablebb) == 0) {
+      errorMessage <<- TRUE
       filterTablebb <- add_row(filterTablebb, Real.BB = input[[useSliderBb]])
     }
     
@@ -41,6 +113,7 @@ function(input, output) {
     filterTableps <- MCAT_clean_data %>%
       filter(MCAT_clean_data[pstest] == input[[useSliderPs]])
     if (nrow(filterTableps) == 0) {
+      errorMessage <<- TRUE
       filterTableps <- add_row(filterTableps, Real.PS = input[[useSliderPs]])
     }
     
@@ -192,8 +265,8 @@ function(input, output) {
     
 
     output$tsText <- renderText({
-      practiceScorePredictor("FL1")
-      
+        practiceScorePredictor("FL1")
+
     })   
     output$tsTextFL2 <- renderText({
       practiceScorePredictor("FL2")
@@ -201,7 +274,14 @@ function(input, output) {
     })
     
     output$Error <- renderText({
-      "Please select a test to see a plot"
+      if (CPtest == "FL1.CP"){
+        practiceScorePredictor("FL1")
+      }
+      else if (CPtest == "FL2.CP") {
+        practiceScorePredictor("FL2")
+      }
+       if (errorMessage == TRUE){
+       "One or more of your subsection scores did not have any associated data. Our algorithim just returns your input score during its calculation"}
     })
     
     output$test1UI <- renderUI({
@@ -217,12 +297,16 @@ function(input, output) {
            ),
            
           column(6,
+            #boxplotCreator("FL1"),
             plotOutput("BoxPlot1"),
             strong("Predicted Score based on AAMC Full Length #1:"),
-            textOutput("tsText")),
+            textOutput("tsText")
+            ),
           column(3,
                  
-            tableOutput("table")))
+            tableOutput("table")
+            #textOutput("Error")
+            ))
         
 
        }
@@ -241,7 +325,9 @@ function(input, output) {
                    textOutput("tsTextFL2")),
             column(3,
                    
-                   tableOutput("table2")))
+                   tableOutput("table2")
+                   #textOutput("Error")
+        ))
         
       }
       
@@ -280,10 +366,12 @@ function(input, output) {
           column(6,
                  plotOutput("BoxPlot2"),
                  strong("Predicted Score based on AAMC Full Length #2:"),
-                 textOutput("tsTextFL2")),
+                 textOutput("tsTextFL2")
+                 ),
           column(3,
                  
-                 tableOutput("table2")))
+                 tableOutput("table2")
+          ))
         
       }
         else if (input$'PT2' == "AAMC Full Length Test #1"){
@@ -308,12 +396,13 @@ function(input, output) {
      output$table <- renderTable({
        medianTable <- tibble("Section" = c("CP", "CARS", "BB", "PS", "Total"), "Score" = c(medianCP, medianCARS, medianBB, medianPS, practiceScorePredictor("FL1")))
 
-    })
+    },
+    striped = TRUE, bordered = TRUE, digits = 1)
     
      output$table2 <- renderTable({
        medianTable <- tibble("Section" = c("CP", "CARS", "BB", "PS", "Total"), "Score" = c(medianCP, medianCARS, medianBB, medianPS, practiceScorePredictor("FL2")))
        
-     })
-    
+     },
+     striped = TRUE, bordered = TRUE, digits = 1)
     
 }
