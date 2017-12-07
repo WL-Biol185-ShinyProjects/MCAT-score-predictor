@@ -38,11 +38,13 @@ function(input, output) {
   
   inputSlider <- function(examType, subsection, subName){
     sliderName <- paste0(examType, subsection)
-    sliderInput(sliderName,
+    sliderInput(
+                sliderName,
                 subName,
                 min = 118,
                 max = 132,
-                value = 125)
+                value = 125
+                )
      
   }
   
@@ -232,65 +234,6 @@ function(input, output) {
       }
         
         
-<<<<<<< HEAD
-      else if (input$'PT2' == "AAMC Full Length Test #2")
-        {
-          fluidRow(
-            column(3,
-                   inputSlider("FL2", "cp", "Chem and Phys Score"),
-                   inputSlider("FL2", "cars", "CARS Score"),
-                   inputSlider("FL2", "bb", "Biology Score"),
-                   inputSlider("FL2", "ps", "Psych and Sociology Score")),
-            column(6,
-                   plotOutput("BoxPlot2"),
-                   strong("Predicted Score based on AAMC Full Length #2:"),
-                   textOutput("tsTextFL2")),
-            column(3,
-                   tableOutput("table2"))
-            )
-        
-      }
-        # else if (input$'PT2' == "AAMC Full Length Test #1"){
-        #   fluidRow(
-        #     sidebarPanel(
-        #       inputSlider("FL1", "cp", "Chem and Phys Score"),
-        #       inputSlider("FL1", "cars", "CARS Score"),
-        #       inputSlider("FL1", "bb", "Biology Score"),
-        #       inputSlider("FL1", "ps", "Psych and Sociology Score")
-        #     ),
-        #     mainPanel(
-        #       plotOutput("BoxPlot1"),
-        #       strong("Predicted Score based on AAMC Full Length #1:"),
-        #       textOutput("tsText")
-        #     )
-        #   )
-        # }
-    })
-      
-      
-
-      #   selectInput("Practice Test", h4("Please Select a Practice Test:"), c("None", "AAMC Full Length Test #2"))
-      # }
-      # else if (input$'Practice Test' == "AAMC Full Length Test #2"){
-      #   selectInput("Practice Test", h4("Please Select a Practice Test:"), c("None", "AAMC Full Length Test #1"))
-
-      
-      # else if (input$'PT2' == "AAMC Full Length Test #2"){
-      #   sidebarPanel(
-      #     inputSlider("FL2", "cp", "Chem and Phys Score"),
-      #     inputSlider("FL2", "cars", "CARS Score"),
-      #     inputSlider("FL2", "bb", "Biology Score"),
-      #     inputSlider("FL2", "ps", "Psych and Sociology Score")
-      #     
-      #   )
-      #   mainPanel(
-      #     plotOutput("BoxPlot2"),
-      #     strong("Predicted Score based on AAMC Full Length #2:"),
-      #     textOutput("tsTextFL2")
-      #   )
-      #   
-      # }
-=======
       else if (input$'PT2' == "AAMC Full Length Test #2"){
         fluidRow(
           column(3,
@@ -327,7 +270,7 @@ function(input, output) {
                    tableOutput("table2")))
         }
     })
->>>>>>> f5920578d5b9d464225983645400f53768978e75
+
     
      output$table <- renderTable({
        medianCP

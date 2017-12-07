@@ -4,7 +4,8 @@ library(shinythemes)
 inputSlider <- function(examType, subsection, subName)
   {
   sliderName <- paste0(subsection, "Score")
-  sliderInput(sliderName,
+  sliderInput(
+              sliderName,
               subName,
               min = 118,
               max = 132,
@@ -14,7 +15,7 @@ inputSlider <- function(examType, subsection, subName)
       titlePanel("Welcome to our MCAT Score Predictor!"),
     
         navbarPage(
-          theme = shinytheme("superhero"),
+          theme = shinytheme("darkly"),
           "", 
           inverse = TRUE,
           header = tags$style(type = 'text/css', '.navbar {background-color: #969090;
@@ -24,7 +25,6 @@ inputSlider <- function(examType, subsection, subName)
           
           tabPanel("Home", verbatimTextOutput("Home"), 
                    
-                   br(),
                    img(src = "mcat exam picture.png", height = 450, width = 450, align = "center"),
                    br(),
                    br(),
@@ -46,7 +46,7 @@ inputSlider <- function(examType, subsection, subName)
           tabPanel("Predict My Score", verbatimTextOutput("Predict My Score"),
                    
                   selectInput("Practice Test", 
-                              h2("Please select a test:"), 
+                              h3("Please select a test:"), 
                               c("None", "AAMC Full Length Test #1", "AAMC Full Length Test #2")),
                   
                   uiOutput("test1UI"),
@@ -59,20 +59,15 @@ inputSlider <- function(examType, subsection, subName)
           tabPanel("How to Read a Boxplot", verbatimTextOutput("How to Read a Boxplot"),
                    
                    mainPanel(
-                     br(),
-                     h2("How to Read a Boxplot:"),
+                     h3("How to Read a Boxplot:"),
                      
                       img(src = "boxplot-with-outliers.jpg", height = 450, width = 650, align = "center"),
                       p("The authors are aware that a boxplot is not the easiest plot to read if you have never seen such a plot before. Therefore we would like
                         to provide a brief tutorial to explain:"),
-                     
-                      fluidRow(
-                       column(2,""),
-                       column(10,
-                         p("The very dark line in the middle of each box plot represents the median of the data set. The top boundary and bottom boundary
-                         of the box represent the 75th and 25th percentile of the data set. The 'whiskers' of the box plot represent the minimum and
-                         maximum of the given data set. Any points outside of the box represent outliers in the data set."))
-                       )
+                     br(),
+                      p("The very dark line in the middle of each box plot represents the median of the data set. The top boundary and bottom boundary
+                      of the box represent the 75th and 25th percentile of the data set. The 'whiskers' of the box plot represent the minimum and
+                      maximum of the given data set. Any points outside of the box represent outliers in the data set.")
                    
                    )),
           
@@ -88,7 +83,6 @@ inputSlider <- function(examType, subsection, subName)
           ),
           
           tabPanel("About The Creators", verbatimTextOutput("About The Creators"),
-                   br(),
                    h3("About:"),
                    
                    p("Greetings from Alex, Ron, and Deepthi"),
