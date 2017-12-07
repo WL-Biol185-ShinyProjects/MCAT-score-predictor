@@ -25,7 +25,7 @@ inputSlider <- function(examType, subsection, subName)
           
           tabPanel("Home", verbatimTextOutput("Home"), 
                    
-                   img(src = "MCAT_official_logo.jpg", height = 450, width = 450, align = "center"),
+                   img(src = "mcat exam picture.png", height = 450, width = 450, align = "center"),
                    br(),
                    br(),
                    
@@ -39,7 +39,8 @@ inputSlider <- function(examType, subsection, subName)
              
                    p("The raw data can be accessed here:"),
                    a("https://docs.google.com/spreadsheets/d/1JDrmJ1Aa0uvpUovylNvelmBaX_fQj_bhcQ7SVbf5o-M/edit?usp=sharing"),
-                   br()
+                   br(),
+                   p("Cover image credit to: www.brainscape.com")
                    
           ),
           
@@ -67,7 +68,8 @@ inputSlider <- function(examType, subsection, subName)
                      br(),
                       p("The very dark line in the middle of each box plot represents the median of the data set. The top boundary and bottom boundary
                       of the box represent the 75th and 25th percentile of the data set. The 'whiskers' of the box plot represent the minimum and
-                      maximum of the given data set. Any points outside of the box represent outliers in the data set.")
+                      maximum of the given data set. Any points outside of the box represent outliers in the data set."),
+                     p("Image credit to: https://www.mathbootcamps.com/how-to-read-a-boxplot/")
                    
                    )),
           
