@@ -295,11 +295,11 @@ boxplotCreator <- function(examType)
       
       if (input$`Practice Test` == "AAMC Full Length Test #1"){
           fluidRow(
-            column(3,
-             inputSlider("FL1", "cp", "Chem and Phys Score"),
-             inputSlider("FL1", "cars", "CARS Score"),
-             inputSlider("FL1", "bb", "Biology Score"),
-             inputSlider("FL1", "ps", "Psych and Sociology Score")
+            column(2,
+             inputSlider("FL1", "cp", "Chemistry and Physics Score"),
+             inputSlider("FL1", "cars", "Critical Analysis and Reading Score"),
+             inputSlider("FL1", "bb", "Biology and Biochemistry Score"),
+             inputSlider("FL1", "ps", "Psychology and Sociology Score")
            ),
            
           column(6,
@@ -308,7 +308,7 @@ boxplotCreator <- function(examType)
             strong("Predicted Score based on AAMC Full Length #1:"),
             textOutput("tsText")
             ),
-          column(3,
+          column(4,
                  
             tableOutput("table")
             #textOutput("Error")
@@ -318,18 +318,18 @@ boxplotCreator <- function(examType)
        }
       else if (input$`Practice Test` == "AAMC Full Length Test #2"){
           fluidRow(
-            column(3,
-                   inputSlider("FL2", "cp", "Chem and Phys Score"),
-                   inputSlider("FL2", "cars", "CARS Score"),
-                   inputSlider("FL2", "bb", "Biology Score"),
-                   inputSlider("FL2", "ps", "Psych and Sociology Score")
+            column(2,
+                   inputSlider("FL2", "cp", "Chemistry and Physics Score"),
+                   inputSlider("FL2", "cars", "Critical Analysis and Reading Section Score"),
+                   inputSlider("FL2", "bb", "Biology and Biochemistry Score"),
+                   inputSlider("FL2", "ps", "Psychology and Sociology Score")
             ),
             
             column(6,
                    plotOutput("BoxPlot2"),
                    strong("Predicted Score based on AAMC Full Length #2:"),
                    textOutput("tsTextFL2")),
-            column(3,
+            column(4,
                    
                    tableOutput("table2")))
 
@@ -361,11 +361,11 @@ boxplotCreator <- function(examType)
         
       else if (input$'PT2' == "AAMC Full Length Test #2"){
         fluidRow(
-          column(3,
-                 inputSlider("FL2", "cp", "Chem and Phys Score"),
-                 inputSlider("FL2", "cars", "CARS Score"),
-                 inputSlider("FL2", "bb", "Biology Score"),
-                 inputSlider("FL2", "ps", "Psych and Sociology Score")
+          column(2,
+                 inputSlider("FL2", "cp", "Chemistry and Physics Score"),
+                 inputSlider("FL2", "cars", "Critical Analysis and Reading Section Score"),
+                 inputSlider("FL2", "bb", "Biology and Biochemistry Score"),
+                 inputSlider("FL2", "ps", "Psychology and Sociology Score")
           ),
           
           column(6,
@@ -373,7 +373,7 @@ boxplotCreator <- function(examType)
                  strong("Predicted Score based on AAMC Full Length #2:"),
                  textOutput("tsTextFL2")
                  ),
-          column(3,
+          column(4,
                  
                  tableOutput("table2")
           ))
@@ -381,18 +381,18 @@ boxplotCreator <- function(examType)
       }
         else if (input$'PT2' == "AAMC Full Length Test #1"){
           fluidRow(
-            column(3,
-                   inputSlider("FL1", "cp", "Chem and Phys Score"),
-                   inputSlider("FL1", "cars", "CARS Score"),
-                   inputSlider("FL1", "bb", "Biology Score"),
-                   inputSlider("FL1", "ps", "Psych and Sociology Score")
+            column(2,
+                   inputSlider("FL1", "cp", "Chemistry and Physics"),
+                   inputSlider("FL1", "cars", "Critical Analysis and Reading Section Score"),
+                   inputSlider("FL1", "bb", "Biology and Biochemistry Score"),
+                   inputSlider("FL1", "ps", "Psychology and Sociology Score")
             ),
             
             column(6,
                    plotOutput("BoxPlot1"),
                    strong("Predicted Score based on AAMC Full Length #1:"),
                    textOutput("tsText")),
-            column(3,
+            column(4,
                    
                    tableOutput("table")))
         }
@@ -400,13 +400,13 @@ boxplotCreator <- function(examType)
 
     
      output$table <- renderTable({
-       medianTable <- tibble("Section" = c("CP", "CARS", "BB", "PS", "Total"), "Score" = c(medianCP, medianCARS, medianBB, medianPS, practiceScorePredictor("FL1")))
+       medianTable <- tibble("Test Subsection" = c("Chemistry and Physics", "Critical Analysis and Reading", "Biology and Biochemistry", "Psychology and Sociology", "Total"), "Score" = c(medianCP, medianCARS, medianBB, medianPS, practiceScorePredictor("FL1")))
 
     },
     striped = TRUE, bordered = TRUE, digits = 1)
     
      output$table2 <- renderTable({
-       medianTable <- tibble("Section" = c("CP", "CARS", "BB", "PS", "Total"), "Score" = c(medianCP, medianCARS, medianBB, medianPS, practiceScorePredictor("FL2")))
+       medianTable <- tibble("Test subSection" = c("Chemistry and Physics", "Critical Analysis and Reading ", "Biology and Biochemistry", "Psychology and Sociology", "Total"), "Score" = c(medianCP, medianCARS, medianBB, medianPS, practiceScorePredictor("FL2")))
        
      },
      striped = TRUE, bordered = TRUE, digits = 1)
