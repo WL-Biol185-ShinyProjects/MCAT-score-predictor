@@ -6,7 +6,7 @@ library(shinythemes)
 library(readxl)
 source("score predictor.R")
 
-MCAT_clean_data <- read_excel("~/MCAT-score-predictor/MCAT clean data.xlsx")
+MCAT_clean_data <- read_csv("MCAT clean data.csv")
 
 
 #CP distribution plot
@@ -406,7 +406,7 @@ boxplotCreator <- function(examType)
     striped = TRUE, bordered = TRUE, digits = 1)
     
      output$table2 <- renderTable({
-       medianTable <- tibble("Test subSection" = c("Chemistry and Physics", "Critical Analysis and Reading ", "Biology and Biochemistry", "Psychology and Sociology", "Total"), "Score" = c(medianCP, medianCARS, medianBB, medianPS, practiceScorePredictor("FL2")))
+       medianTable <- tibble("Test Subection" = c("Chemistry and Physics", "Critical Analysis and Reading ", "Biology and Biochemistry", "Psychology and Sociology", "Total"), "Score" = c(medianCP, medianCARS, medianBB, medianPS, practiceScorePredictor("FL2")))
        
      },
      striped = TRUE, bordered = TRUE, digits = 1)
