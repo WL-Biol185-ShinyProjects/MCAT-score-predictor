@@ -3,78 +3,81 @@ library(ggplot2)
 library(tidyverse)
 library(dplyr)
 library(shinythemes)
+library(readxl)
 source("score predictor.R")
+
+MCAT_clean_data <- read_excel("~/MCAT-score-predictor/MCAT clean data.xlsx")
 
 
 #CP distribution plot
 function(input, output) {
   
-  # boxplotCreator <- function(examType)
-  # {
-  #   examCP <- paste0(examType, ".CP")
-  #   examCARS <- paste0(examType, ".CARS")
-  #   examBB <- paste0(examType, ".BB")
-  #   examPS <- paste0(examType, ".PS")
-  #   sliderCP <- paste0(examType, "cp")
-  #   sliderCARS <- paste0(examType, "cars")
-  #   sliderBB <- paste0(examType, "bb")
-  #   sliderPS <- paste0(examType, "ps")
-  #   
-  #   CP.CARS.Table <-bind_rows(
-  #     CPtable <- transmute(MCAT_clean_data, Real.CP = Real.CP, examCP = MCAT_clean_data[[examCP]]) %>%
-  #       na.omit(examCP) %>%
-  #       filter(examCP == input[[sliderCP]]) %>%
-  #       gather("subsection", "score", 1),
-  #      if (nrow(CPtable) == 0) {
-  #        CPtable <- add_row(CPtable, "subsection" = "Real.CP", "score" = input[[sliderCP]])},
+boxplotCreator <- function(examType)
+{
+  examCP <- paste0(examType, ".CP")
+  examCARS <- paste0(examType, ".CARS")
+  examBB <- paste0(examType, ".BB")
+  examPS <- paste0(examType, ".PS")
+  sliderCP <- paste0(examType, "cp")
+  sliderCARS <- paste0(examType, "cars")
+  sliderBB <- paste0(examType, "bb")
+  sliderPS <- paste0(examType, "ps")
+
+  #CP.CARS.Table <-bind_rows(
+    CPtable <- transmute(MCAT_clean_data, Real.CP = Real.CP, examCP = MCAT_clean_data[[examCP]]) %>%
+      na.omit(examCP) %>%
+      filter(CPtable[examCP] == input[[sliderCP]]) #%>%
+      #gather("subsection", "score", 1)
+     # if (nrow(CPtable) == 0) {
+     #   CPtable <- add_row(CPtable, "subsection" = "Real.CP", "score" = input[[sliderCP]])}
+
+  #    CARStable <- transmute(MCAT_clean_data, Real.CARS = Real.CARS, examCARS = MCAT_clean_data[[examCARS]]) %>%
+  #     na.omit(examCP) %>%
+  #      filter(examCARS == input[[sliderCARS]]) %>%
+  #      gather("subsection", "score", 1),
+  #    if (nrow(CARStable) == 0) {
+  #      CARStable <- add_row(CARStable, "subsection" = "Real.CARS", "score" = input[[sliderCP]])}
+  # )
+
+  #  BB.PS.Table <- bind_rows(
+  #    BBtable<- transmute(MCAT_clean_data, Real.BB = Real.BB, examBB = MCAT_clean_data[[examBB]]) %>%
+  #      na.omit(examCP) %>%
+  #      filter(examBB == input[[sliderBB]]) %>%
+  #     gather("subsection", "score", 1),
+  #   if (nrow(BBtable) == 0) {
+  #     BBtable <- add_row(BBtable, "subsection" = "Real.BB", "score" = input[[sliderBB]])},
   # 
-  #      CARStable <- transmute(MCAT_clean_data, Real.CARS = Real.CARS, examCARS = MCAT_clean_data[[examCARS]]) %>%
-  #       na.omit(examCP) %>%
-  #        filter(examCARS == input[[sliderCARS]]) %>%
-  #        gather("subsection", "score", 1),
-  #      if (nrow(CARStable) == 0) {
-  #        CARStable <- add_row(CARStable, "subsection" = "Real.CARS", "score" = input[[sliderCP]])}
-  #   )
+  #   PStable <- transmute(MCAT_clean_data, Real.PS = Real.PS, examPS = MCAT_clean_data[[examPS]]) %>%
+  #     na.omit(examCP) %>%
+  #     filter(examPS == input[[sliderPS]]) %>%
+  #     gather("subsection", "score", 1),
+  #   if (nrow(PStable) == 0) {
+  #     PStable <- add_row(PStable, "subsection" = "Real.PS", "score" = input[[sliderPS]])}
+  # )
   # 
-  #    BB.PS.Table <- bind_rows(
-  #      BBtable<- transmute(MCAT_clean_data, Real.BB = Real.BB, examBB = MCAT_clean_data[[examBB]]) %>%
-  #        na.omit(examCP) %>%
-  #        filter(examBB == input[[sliderBB]]) %>%
-  #       gather("subsection", "score", 1),
-  #     if (nrow(BBtable) == 0) {
-  #       BBtable <- add_row(BBtable, "subsection" = "Real.BB", "score" = input[[sliderBB]])},
   # 
-  #     PStable <- transmute(MCAT_clean_data, Real.PS = Real.PS, examPS = MCAT_clean_data[[examPS]]) %>%
-  #       na.omit(examCP) %>%
-  #       filter(examPS == input[[sliderPS]]) %>%
-  #       gather("subsection", "score", 1),
-  #     if (nrow(PStable) == 0) {
-  #       PStable <- add_row(PStable, "subsection" = "Real.PS", "score" = input[[sliderPS]])}
-  #   )
-# 
-# 
-#     MainTable <- bind_rows(CP.CARS.Table, BB.PS.Table)
-# 
-#     cleanup <- theme(panel.grid.major = element_blank(),
-#                      panel.grid.minor = element_blank(),
-#                      panel.background = element_blank(),
-#                      axis.line = element_line(color = "black"))
-# 
-#     MainTable$Section <- factor(MainTable$subsection,  levels = c("Real.CP", "Real.CARS", "Real.BB", "Real.PS"))
-# 
-#     median2 <- aggregate(score ~ Section, MainTable, median)
-# 
-#     ggplot(MainTable, aes(Section, score, fill = Section)) +
-#       geom_boxplot() +
-#       ylim(118, 132) +
-#       xlab("Subsection") +
-#       ylab("Scaled Score") +
-#       cleanup +
-#       scale_x_discrete(labels = c("CP", "CARS", "BB", "PS")) +
-# 
-#       geom_text(data = median2, aes(label = score, y = score - 0.3)) +
-#       guides(fill = FALSE)
-#   }
+  #   MainTable <- bind_rows(CP.CARS.Table, BB.PS.Table)
+
+    # cleanup <- theme(panel.grid.major = element_blank(),
+    #                  panel.grid.minor = element_blank(),
+    #                  panel.background = element_blank(),
+    #                  axis.line = element_line(color = "black"))
+    # 
+    # MainTable$Section <- factor(MainTable$subsection,  levels = c("Real.CP", "Real.CARS", "Real.BB", "Real.PS"))
+    # 
+    # median2 <- aggregate(score ~ Section, MainTable, median)
+    # 
+    # ggplot(MainTable, aes(Section, score, fill = Section)) +
+    #   geom_boxplot() +
+    #   ylim(118, 132) +
+    #   xlab("Subsection") +
+    #   ylab("Scaled Score") +
+    #   cleanup +
+    #   scale_x_discrete(labels = c("CP", "CARS", "BB", "PS")) +
+    # 
+    #   geom_text(data = median2, aes(label = score, y = score - 0.3)) +
+    #   guides(fill = FALSE)
+  }
   
   practiceScorePredictor <- function(examType, medianValues = FALSE)
     
