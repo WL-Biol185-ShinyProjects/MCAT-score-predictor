@@ -35,10 +35,21 @@ inputSlider <- function(examType, subsection, subName)
 
                    p("We have created an interactive score predictor that uses crowdsourced data 
                    reported by members of the /r/MCAT community on reddit which can be found here:"), 
-                   a("https://www.reddit.com/r/Mcat/"), 
-             
-                   p("The raw data can be accessed here:"),
-                   a("https://docs.google.com/spreadsheets/d/1JDrmJ1Aa0uvpUovylNvelmBaX_fQj_bhcQ7SVbf5o-M/edit?usp=sharing"),
+                   # URL <- a("The Reddit page", href="https://www.reddit.com/r/Mcat/"),
+                   #    tagList("URL link:", url),
+                   a("The Reddit page", 
+                     href="https://www.reddit.com/r/Mcat/", 
+                     target = "_blank"), 
+                   br(),
+                   br(),
+                   #a("https://docs.google.com/spreadsheets/d/1JDrmJ1Aa0uvpUovylNvelmBaX_fQj_bhcQ7SVbf5o-M/edit?usp=sharing"),
+                   a("The raw data can be accessed here:",     
+                      href="https://docs.google.com/spreadsheets/d/1JDrmJ1Aa0uvpUovylNvelmBaX_fQj_bhcQ7SVbf5o-M/edit?usp=sharing",
+                      target = '_blank'),
+                   br(),
+                   br(),
+                   br(),
+                   br(),
                    br(),
                    p("Cover image credit to: www.brainscape.com")
                    
