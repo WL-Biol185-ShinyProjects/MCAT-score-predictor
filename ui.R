@@ -35,8 +35,10 @@ inputSlider <- function(examType, subsection, subName)
 
                    p("We have created an interactive score predictor that uses crowdsourced data 
                    reported by members of the /r/MCAT community on reddit which can be found here:"), 
-                   a("https://www.reddit.com/r/Mcat/"), 
-             
+                   a("The Reddit page", 
+                     href="https://www.reddit.com/r/Mcat/", 
+                     target = "_blank"), 
+                   
                    p("The raw data can be accessed here:"),
                    a("https://docs.google.com/spreadsheets/d/1JDrmJ1Aa0uvpUovylNvelmBaX_fQj_bhcQ7SVbf5o-M/edit?usp=sharing"),
                    br()
