@@ -335,6 +335,18 @@ boxplotCreator <- function(examType)
 
         
       }
+      else if (input$`Practice Test` == "Sample Test"){
+        fluidRow(
+          column(2,
+                 sliderInput("CP", "Chemistry and Physics Score",
+                             min = 0,
+                             max = 100,
+                             value = 50)),
+          column(6),
+          column(4)
+          
+        )
+      }
       
     })
     
