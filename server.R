@@ -4,7 +4,6 @@ library(tidyverse)
 library(dplyr)
 library(shinythemes)
 library(readxl)
-#source("score predictor.R")
 
 MCAT_clean_data <- read_csv("MCAT clean data.csv")
 
