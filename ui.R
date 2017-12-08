@@ -38,10 +38,18 @@ inputSlider <- function(examType, subsection, subName)
                    a("The Reddit page", 
                      href="https://www.reddit.com/r/Mcat/", 
                      target = "_blank"), 
+                   br(),
+                   br(),
+                   a("The raw data can be accessed here:",     
+                     href="https://docs.google.com/spreadsheets/d/1JDrmJ1Aa0uvpUovylNvelmBaX_fQj_bhcQ7SVbf5o-M/edit?usp=sharing",
+                     target = '_blank'),
+                   br(),
+                   br(),
+                   br(),
+                   br(),
+                   br(),
+                   p("Cover image credit to: www.brainscape.com")
                    
-                   p("The raw data can be accessed here:"),
-                   a("https://docs.google.com/spreadsheets/d/1JDrmJ1Aa0uvpUovylNvelmBaX_fQj_bhcQ7SVbf5o-M/edit?usp=sharing"),
-                   br()
                    
           ),
           
