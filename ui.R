@@ -25,7 +25,7 @@ inputSlider <- function(examType, subsection, subName)
           
           tabPanel("Home", verbatimTextOutput("Home"), 
                    
-                   img(src = "MCAT_official_logo.jpg", height = 450, width = 450, align = "center"),
+                   img(src = "mcat exam picture.png", height = 450, width = 450, align = "center"),
                    br(),
                    br(),
                    
