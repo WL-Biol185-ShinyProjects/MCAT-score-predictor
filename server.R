@@ -4,6 +4,7 @@ library(tidyverse)
 library(dplyr)
 library(shinythemes)
 library(readxl)
+source("score predictor.R")
 
 MCAT_clean_data <- read_csv("MCAT clean data.csv")
 
@@ -333,18 +334,6 @@ boxplotCreator <- function(examType)
                    tableOutput("table2")))
 
         
-      }
-      else if (input$`Practice Test` == "Sample Test"){
-        fluidRow(
-          column(2,
-                 sliderInput("CP", "Chemistry and Physics Score",
-                             min = 0,
-                             max = 100,
-                             value = 50)),
-          column(6),
-          column(4)
-          
-        )
       }
       
     })
