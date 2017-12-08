@@ -1,0 +1,164 @@
+
+Listening on http://127.0.0.1:34066
+Loading tidyverse: tibble
+Loading tidyverse: tidyr
+Loading tidyverse: readr
+Loading tidyverse: purrr
+Loading tidyverse: dplyr
+Conflicts with tidy packages ---------------------------------------------------
+filter(): dplyr, stats
+lag():    dplyr, stats
+Parsed with column specification:
+cols(
+  .default = col_integer(),
+  ST = col_double(),
+  ST.CP = col_double(),
+  ST.CARS = col_double(),
+  ST.BB = col_double(),
+  ST.PS = col_double(),
+  SB.CP = col_double(),
+  SB.BB = col_double(),
+  SB.PS = col_double(),
+  EK.3 = col_double(),
+  EK.4 = col_double(),
+  Retaker = col_character()
+)
+See spec(...) for full column specifications.
+Warning: Removed 1 rows containing missing values (geom_text).
+Warning: Removed 1 rows containing missing values (geom_text).
+Warning: Removed 1 rows containing missing values (geom_text).
+Warning: Removed 1 rows containing missing values (geom_text).
+Warning: Removed 2 rows containing missing values (geom_text).
+Warning: Removed 3 rows containing missing values (geom_text).
+Warning: Removed 4 rows containing missing values (geom_text).
+Warning: Removed 3 rows containing missing values (geom_text).
+Warning: Removed 2 rows containing missing values (geom_text).
+Warning: Removed 1 rows containing missing values (geom_text).
+Warning: Removed 1 rows containing missing values (geom_text).
+Warning: Removed 1 rows containing missing values (geom_text).
+Warning in file(filename, "r", encoding = encoding) :
+  cannot open file 'score predictor.R': No such file or directory
+Warning: Error in file: cannot open the connection
+Stack trace (innermost first):
+    41: file
+    40: source
+     1: runApp
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Warning in file(filename, "r", encoding = encoding) :
+  cannot open file 'score predictor.R': No such file or directory
+Warning: Error in file: cannot open the connection
+Stack trace (innermost first):
+    41: file
+    40: source
+     1: runApp
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Warning in file(filename, "r", encoding = encoding) :
+  cannot open file 'score predictor.R': No such file or directory
+Warning: Error in file: cannot open the connection
+Stack trace (innermost first):
+    41: file
+    40: source
+     1: runApp
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Warning in file(filename, "r", encoding = encoding) :
+  cannot open file 'score predictor.R': No such file or directory
+Warning: Error in file: cannot open the connection
+Stack trace (innermost first):
+    41: file
+    40: source
+     1: runApp
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Warning in file(filename, "r", encoding = encoding) :
+  cannot open file 'score predictor.R': No such file or directory
+Warning: Error in file: cannot open the connection
+Stack trace (innermost first):
+    41: file
+    40: source
+     1: runApp
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Warning in file(filename, "r", encoding = encoding) :
+  cannot open file 'score predictor.R': No such file or directory
+Warning: Error in file: cannot open the connection
+Stack trace (innermost first):
+    41: file
+    40: source
+     1: runApp
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Warning in file(filename, "r", encoding = encoding) :
+  cannot open file 'score predictor.R': No such file or directory
+Warning: Error in file: cannot open the connection
+Stack trace (innermost first):
+    41: file
+    40: source
+     1: runApp
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Warning in file(filename, "r", encoding = encoding) :
+  cannot open file 'score predictor.R': No such file or directory
+Warning: Error in file: cannot open the connection
+Stack trace (innermost first):
+    41: file
+    40: source
+     1: runApp
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Warning in file(filename, "r", encoding = encoding) :
+  cannot open file 'score predictor.R': No such file or directory
+Warning: Error in file: cannot open the connection
+Stack trace (innermost first):
+    41: file
+    40: source
+     1: runApp
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Warning in file(filename, "r", encoding = encoding) :
+  cannot open file 'score predictor.R': No such file or directory
+Warning: Error in file: cannot open the connection
+Stack trace (innermost first):
+    41: file
+    40: source
+     1: runApp
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Warning in file(filename, "r", encoding = encoding) :
+  cannot open file 'score predictor.R': No such file or directory
+Warning: Error in file: cannot open the connection
+Stack trace (innermost first):
+    41: file
+    40: source
+     1: runApp
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Warning in file(filename, "r", encoding = encoding) :
+  cannot open file 'score predictor.R': No such file or directory
+Warning: Error in file: cannot open the connection
+Stack trace (innermost first):
+    41: file
+    40: source
+     1: runApp
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Warning in file(filename, "r", encoding = encoding) :
+  cannot open file 'score predictor.R': No such file or directory
+Warning: Error in file: cannot open the connection
+Stack trace (innermost first):
+    41: file
+    40: source
+     1: runApp
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Warning in file(filename, "r", encoding = encoding) :
+  cannot open file 'score predictor.R': No such file or directory
+Warning: Error in file: cannot open the connection
+Stack trace (innermost first):
+    41: file
+    40: source
+     1: runApp
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
