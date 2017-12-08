@@ -78,6 +78,11 @@ inputSlider <- function(examType, subsection, subName)
                       p("The very dark line in the middle of each box plot represents the median of the data set. The top boundary and bottom boundary
                       of the box represent the 75th and 25th percentile of the data set. The 'whiskers' of the box plot represent the minimum and
                       maximum of the given data set. Any points outside of the box represent outliers in the data set."),
+                     br(),
+                     br(),
+                     br(),
+                     br(),
+                     br(),
                      p("Image credit to: https://www.mathbootcamps.com/how-to-read-a-boxplot/")
                    
                    )),
