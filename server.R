@@ -79,7 +79,7 @@ boxplotCreator <- function(examType)
     #   guides(fill = FALSE)
   }
   
-  practiceScorePredictor <- function(examType, medianValues = FALSE)
+  practiceScorePredictor <- function(examType, sampleTest = FALSE)
     
   {
     errorMessage <<- FALSE
@@ -87,36 +87,43 @@ boxplotCreator <- function(examType)
     useSliderCp <- paste0(examType, "cp")
     filterTablecp <<- MCAT_clean_data %>%
       filter(MCAT_clean_data[CPtest] == input[[useSliderCp]])
-    if (nrow(filterTablecp) == 0) {
-      errorMessage <<- TRUE
+    if (nrow(filterTablecp) == 0 & sampleTest == TRUE) {
+      filterTablecp <- add_row(filterTablecp, Real.CP = 125)
+    }
+    else if (nrow(filterTablecp) == 0) {
       filterTablecp <- add_row(filterTablecp, Real.CP = input[[useSliderCp]])
-      
     }
     
     carstest <- paste0(examType, ".CARS")
     useSliderCars <- paste0(examType, "cars")
-    filterTablecars <- MCAT_clean_data %>%
+    filterTablecars <<- MCAT_clean_data %>%
       filter(MCAT_clean_data[carstest] == input[[useSliderCars]])
-    if (nrow(filterTablecars) == 0) {
-      errorMessage <<- TRUE
+    if (nrow(filterTablecars) == 0 & sampleTest == TRUE) {
+      filterTablecars <- add_row(filterTablecars, Real.CARS = 125)
+    }
+    else if (nrow(filterTablecars) == 0) {
       filterTablecars <- add_row(filterTablecars, Real.CARS = input[[useSliderCars]])
     }
     
     bbtest <- paste0(examType, ".BB")
     useSliderBb <- paste0(examType, "bb")
-    filterTablebb <- MCAT_clean_data %>%
+    filterTablebb <<- MCAT_clean_data %>%
       filter(MCAT_clean_data[bbtest] == input[[useSliderBb]])
-    if (nrow(filterTablebb) == 0) {
-      errorMessage <<- TRUE
+    if (nrow(filterTablebb) == 0 & sampleTest == TRUE) {
+      filterTablebb <- add_row(filterTablebb, Real.BB = 125)
+    }
+    else if (nrow(filterTablebb) == 0) {
       filterTablebb <- add_row(filterTablebb, Real.BB = input[[useSliderBb]])
     }
     
     pstest <- paste0(examType, ".PS")
     useSliderPs <- paste0(examType, "ps")
-    filterTableps <- MCAT_clean_data %>%
+    filterTableps <<- MCAT_clean_data %>%
       filter(MCAT_clean_data[pstest] == input[[useSliderPs]])
-    if (nrow(filterTableps) == 0) {
-      errorMessage <<- TRUE
+    if (nrow(filterTableps) == 0 & sampleTest == TRUE) {
+      filterTableps <- add_row(filterTableps, Real.PS = 125)
+    }
+    else if (nrow(filterTableps) == 0) {
       filterTableps <- add_row(filterTableps, Real.PS = input[[useSliderPs]])
     }
     
@@ -124,8 +131,9 @@ boxplotCreator <- function(examType)
     medianCARS <<- median(filterTablecars$Real.CARS)
     medianBB <<- median(filterTablebb$Real.BB)
     medianPS <<- median(filterTableps$Real.PS)
+    numberData <<- nrow(filterTablecp) + nrow(filterTablecars) + nrow(filterTablebb) + nrow(filterTableps)
     median(filterTablecp$Real.CP) + median(filterTablecars$Real.CARS) + median(filterTablebb$Real.BB) + median(filterTableps$Real.PS)
-    
+     
   }
   
   inputSlider <- function(examType, subsection, subName){
@@ -138,6 +146,40 @@ boxplotCreator <- function(examType)
                 value = 125
                 )
      
+  }
+  
+  sliderSet <- function(examType, sample = FALSE) {
+    if (sample == FALSE){
+     fluidRow(
+     inputSlider(examType, "cp", "Chemsitry and Physics Score"),
+     inputSlider(examType, "cars", "Critical Analysis and Reading Score"),
+     inputSlider(examType, "bb", "Biology and Biochemsitry Score"),
+     inputSlider(examType, "ps", "Psychology and Sociology Score")
+    )
+    }
+    else if (sample == TRUE){
+      sliderCP <- paste0(examType, "cp")
+      sliderCARS <- paste0(examType, "cars")
+      sliderBB <- paste0(examType, "bb")
+      sliderPS <- paste0(examType, "ps")
+      fluidRow(
+                  sliderInput(sliderCP, "Chemistry and Physics Score",
+                              min = 0,
+                              max = 100,
+                              value = 75),
+                  sliderInput(sliderCARS, "Critical Analysis and Reading",
+                              min = 0,
+                              max = 100,
+                              value = 75),
+                  sliderInput(sliderBB, "Biology and Biochemistry Score",
+                              min = 0,
+                              max = 100,
+                              value = 75),
+                  sliderInput(sliderPS, "Psychology and Sociology Score",
+                              min = 0,
+                              max = 100,
+                              value = 75))
+    }
   }
   
   output$BoxPlot1 <- renderPlot({
@@ -267,6 +309,71 @@ boxplotCreator <- function(examType)
     
 
   })
+  
+  output$BoxPlot3 <- renderPlot({
+    
+    
+    CP.CARS.Table <-bind_rows(
+      CPtable <- transmute(MCAT_clean_data, Real.CP = Real.CP, ST.CP = ST.CP) %>%
+        filter(ST.CP == input$STcp) %>%
+        gather("subsection", "score", 1),
+      if (nrow(CPtable) == 0) {
+        CPtable <- add_row(CPtable, "subsection" = "Real.CP", "score" = 125)},
+      
+      CARStable <- transmute(MCAT_clean_data, Real.CARS = Real.CARS, ST.CARS = ST.CARS) %>%
+        filter(ST.CARS == input$STcars) %>%
+        gather("subsection", "score", 1),
+      if (nrow(CARStable) == 0) {
+        CARStable <- add_row(CARStable, "subsection" = "Real.CARS", "score" = 125)}
+      
+    )
+    
+    BB.PS.Table <- bind_rows(
+      BBtable<- transmute(MCAT_clean_data, Real.BB = Real.BB, ST.BB = ST.BB) %>%
+        filter(ST.BB == input$STbb) %>%
+        gather("subsection", "score", 1),
+      if (nrow(BBtable) == 0) {
+        BBtable <- add_row(BBtable, "subsection" = "Real.BB", "score" = 125)},
+      
+      PStable <- transmute(MCAT_clean_data, Real.PS = Real.PS, ST.PS = ST.PS) %>%
+        filter(ST.PS == input$STps) %>%
+        gather("subsection", "score", 1),
+      if (nrow(PStable) == 0) {
+        PStable <- add_row(PStable, "subsection" = "Real.PS", "score" = 125)}
+    )
+    
+    
+    MainTable <- bind_rows(CP.CARS.Table, BB.PS.Table)
+    
+    MainTable$Section <- factor(MainTable$subsection)
+    
+    
+    median1 <<- aggregate(score ~ Section, MainTable, median)
+    
+    
+    cleanup <- theme(panel.grid.major = element_blank(),
+                     panel.grid.minor = element_blank(),
+                     panel.background = element_blank(),
+                     axis.line = element_line(color = "black"))
+    
+    
+    MainTable$Section <- factor(MainTable$subsection, levels = c("Real.CP", "Real.CARS", "Real.BB", "Real.PS"))
+    ggplot(MainTable, aes(Section, score, fill = Section)) + 
+      geom_boxplot() + 
+      ylim(118, 132) +
+      xlab("Subsection") + 
+      ylab("Scaled Score") + 
+      cleanup +
+      scale_x_discrete(labels = c("CP", "CARS", "BB", "PS")) +
+      theme(text = element_text(size=15)) +
+      geom_text(data = median1, aes(label = score, y = score - 0.3)) +
+      guides(fill = FALSE)
+    
+    
+    
+    
+    
+  })
    
     
 
@@ -276,6 +383,11 @@ boxplotCreator <- function(examType)
     })   
     output$tsTextFL2 <- renderText({
       practiceScorePredictor("FL2")
+      
+    })
+    
+    output$tsTextST <- renderText({
+      practiceScorePredictor("ST", sampleTest = TRUE)
       
     })
     
@@ -296,10 +408,7 @@ boxplotCreator <- function(examType)
       if (input$`Practice Test` == "AAMC Full Length Test #1"){
           fluidRow(
             column(2,
-             inputSlider("FL1", "cp", "Chemistry and Physics Score"),
-             inputSlider("FL1", "cars", "Critical Analysis and Reading Score"),
-             inputSlider("FL1", "bb", "Biology and Biochemistry Score"),
-             inputSlider("FL1", "ps", "Psychology and Sociology Score")
+             sliderSet("FL1")
            ),
            
           column(6,
@@ -319,10 +428,7 @@ boxplotCreator <- function(examType)
       else if (input$`Practice Test` == "AAMC Full Length Test #2"){
           fluidRow(
             column(2,
-                   inputSlider("FL2", "cp", "Chemistry and Physics Score"),
-                   inputSlider("FL2", "cars", "Critical Analysis and Reading Section Score"),
-                   inputSlider("FL2", "bb", "Biology and Biochemistry Score"),
-                   inputSlider("FL2", "ps", "Psychology and Sociology Score")
+                   sliderSet("FL2")
             ),
             
             column(6,
@@ -338,12 +444,14 @@ boxplotCreator <- function(examType)
       else if (input$`Practice Test` == "Sample Test"){
         fluidRow(
           column(2,
-                 sliderInput("CP", "Chemistry and Physics Score",
-                             min = 0,
-                             max = 100,
-                             value = 50)),
-          column(6),
-          column(4)
+                 sliderSet("ST", sample = TRUE)
+                 ),
+          column(6,
+                 plotOutput("BoxPlot3"),
+                 textOutput("tsTextST")
+                 ),
+          column(4,
+                 tableOutput("table3"))
           
         )
       }
@@ -356,11 +464,15 @@ boxplotCreator <- function(examType)
       
       else if (input$'Practice Test' == "AAMC Full Length Test #1"){
 
-        selectInput("PT2", h2("Please Select a Practice Test:"), c("None", "AAMC Full Length Test #2"))
+        selectInput("PT2", h2("Please Select a Practice Test:"), c("None", "AAMC Full Length Test #2", "Sample Test"))
       }
       
       else if (input$`Practice Test` == "AAMC Full Length Test #2"){
-        selectInput("PT2", h2("Please Select a Practice Test:"), c("None", "AAMC Full Length Test #1"))
+        selectInput("PT2", h2("Please Select a Practice Test:"), c("None", "AAMC Full Length Test #1", "Sample Test"))
+      }
+      
+      else if (input$`Practice Test` == "Sample Test"){
+        selectInput("PT2", h2("Please Select a Practice Test:"), c("None", "AAMC Full Length Test #1", "AAMC Full Length Test #2"))
       }
    
  
@@ -374,10 +486,7 @@ boxplotCreator <- function(examType)
       else if (input$'PT2' == "AAMC Full Length Test #2"){
         fluidRow(
           column(2,
-                 inputSlider("FL2", "cp", "Chemistry and Physics Score"),
-                 inputSlider("FL2", "cars", "Critical Analysis and Reading Section Score"),
-                 inputSlider("FL2", "bb", "Biology and Biochemistry Score"),
-                 inputSlider("FL2", "ps", "Psychology and Sociology Score")
+                 sliderSet("FL2")
           ),
           
           column(6,
@@ -394,10 +503,7 @@ boxplotCreator <- function(examType)
         else if (input$'PT2' == "AAMC Full Length Test #1"){
           fluidRow(
             column(2,
-                   inputSlider("FL1", "cp", "Chemistry and Physics"),
-                   inputSlider("FL1", "cars", "Critical Analysis and Reading Section Score"),
-                   inputSlider("FL1", "bb", "Biology and Biochemistry Score"),
-                   inputSlider("FL1", "ps", "Psychology and Sociology Score")
+                   sliderSet("FL1")
             ),
             
             column(6,
@@ -408,17 +514,36 @@ boxplotCreator <- function(examType)
                    
                    tableOutput("table")))
         }
+      else if (input$'PT2' == "Sample Test"){
+          fluidRow(
+            column(2,
+                   sliderSet("ST", sample = TRUE)
+            ),
+            column(6,
+                   plotOutput("BoxPlot3"),
+                   textOutput("tsTextST")
+            ),
+            column(4,
+                   tableOutput("table3"))
+          )
+      }
     })
 
     
      output$table <- renderTable({
-       medianTable <- tibble("Test Subsection" = c("Chemistry and Physics", "Critical Analysis and Reading", "Biology and Biochemistry", "Psychology and Sociology", "Total"), "Score" = c(medianCP, medianCARS, medianBB, medianPS, practiceScorePredictor("FL1")))
+       medianTable <- tibble("Test Subsection" = c("Chemistry and Physics", "Critical Analysis and Reading", "Biology and Biochemistry", "Psychology and Sociology", "Total"), "Score" = c(medianCP, medianCARS, medianBB, medianPS, practiceScorePredictor("FL1")), "Number of Data Points" = c(nrow(filterTablecp), nrow(filterTablecars), nrow(filterTablebb), nrow(filterTableps), numberData))
 
     },
     striped = TRUE, bordered = TRUE, digits = 1)
     
      output$table2 <- renderTable({
-       medianTable <- tibble("Test Subection" = c("Chemistry and Physics", "Critical Analysis and Reading ", "Biology and Biochemistry", "Psychology and Sociology", "Total"), "Score" = c(medianCP, medianCARS, medianBB, medianPS, practiceScorePredictor("FL2")))
+       medianTable <- tibble("Test Subection" = c("Chemistry and Physics", "Critical Analysis and Reading ", "Biology and Biochemistry", "Psychology and Sociology", "Total"), "Score" = c(medianCP, medianCARS, medianBB, medianPS, practiceScorePredictor("FL2")), "Number of Data Points" = c(nrow(filterTablecp), nrow(filterTablecars), nrow(filterTablebb), nrow(filterTableps), numberData))
+       
+     },
+     striped = TRUE, bordered = TRUE, digits = 1)
+     
+     output$table3 <- renderTable({
+       medianTable <- tibble("Test Subection" = c("Chemistry and Physics", "Critical Analysis and Reading ", "Biology and Biochemistry", "Psychology and Sociology", "Total"), "Score" = c(medianCP, medianCARS, medianBB, medianPS, practiceScorePredictor("ST", sampleTest = TRUE)), "Number of Data Points" = c(nrow(filterTablecp), nrow(filterTablecars), nrow(filterTablebb), nrow(filterTableps), numberData))
        
      },
      striped = TRUE, bordered = TRUE, digits = 1)
