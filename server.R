@@ -547,5 +547,6 @@ boxplotCreator <- function(examType)
        
      },
      striped = TRUE, bordered = TRUE, digits = 1)
+     
     
 }
