@@ -1,6 +1,8 @@
 library(shiny)
 library(shinythemes)
 
+# This allowed us to create the shell of the functionality of the entire app with the creation of
+# the sliders that the visitors to the app would use to input their scores.
 inputSlider <- function(examType, subsection, subName)
   {
   sliderName <- paste0(subsection, "Score")
@@ -10,10 +12,14 @@ inputSlider <- function(examType, subsection, subName)
               min = 118,
               max = 132,
               value = 125)
-  }
+}
+#We used a main panel to create the most exterior level of our app. This also then allowed us to
+#continue to use panels to organize all the other pages in our app.
     mainPanel(
       titlePanel("Welcome to our MCAT Score Predictor!"),
-    
+      
+        #Here we used the navbarPage to pick the shiny theme, font, and size of the panel itself
+        # that would allow our visitors to traverse through the website.
         navbarPage(
           theme = shinytheme("darkly"),
           "", 
@@ -23,6 +29,10 @@ inputSlider <- function(examType, subsection, subName)
                                                       font-size: 18px;
                                                       color: #f9f9f9; }'),
           
+          #This is the first panel of the page and it functions as the first page that visitors to our
+          #page will see. It shows which test we are predicting scores for, explains a little about how
+          # we are actually making the predictions, and allows the users to actually access the Reddit
+          # page and the raw data that we are using to construct this app. 
           tabPanel("Home", verbatimTextOutput("Home"), 
                    
                    img(src = "mcat exam picture.png", height = 450, width = 450, align = "center"),
@@ -53,19 +63,31 @@ inputSlider <- function(examType, subsection, subName)
                    
           ),
           
+          
+          #This page is the one where the visitors will actually input the scores they recieved on one
+          # of the practice tests and received a predicted actual exam score.
           tabPanel("Predict My Score", verbatimTextOutput("Predict My Score"),
                    
                   selectInput("Practice Test", 
                               h3("Please select a test:"), 
                               c("None", "AAMC Full Length Test #1", "AAMC Full Length Test #2", "Sample Test")),
                   
+                  #The UI output here allows for the first slider, according to the scores that the visitor
+                  # inputed, to output the corresponding box plot and table.  
                   uiOutput("test1UI"),
+                  #Now we can add a second Dropdrown to determine if the visitory took more than one test.
                   uiOutput("secondDrop"),
+                  #The UI output here allows for the second slider, according to the scores that the visitor
+                  # inputed, to output the corresponding box plot and table. It also ensures that the visitor
+                  #doesn't repeat the test that was previously selected.
                   uiOutput("test2UI")
 
 
           ),
           
+          #This panel provides a short pictoral and word description of how to read a Boxplot
+          # because we know that some people may not know how to read boxplots or may be 
+          # intimidated by them. 
           tabPanel("How to Read a Boxplot", verbatimTextOutput("How to Read a Boxplot"),
                    
                    mainPanel(
@@ -87,7 +109,10 @@ inputSlider <- function(examType, subsection, subName)
                    
                    )),
           
-          
+          #This panel includes an HTML inset of the google form that users can use to add their information to 
+          # the data set that we are using to pull the data to create the predictions that our visitors are looking
+          # for. This will also allow for the visitors to the site to input their data if they aren't already in
+          # the database.
           tabPanel("Help us be More Accurate", verbatimTextOutput("Help us be More Accurate"),
                    
                    h3("To help us make our score predictor even better, we encourage you to complete the score report AFTER you take the real MCAT and obtain your score."), 
@@ -98,6 +123,9 @@ inputSlider <- function(examType, subsection, subName)
                    
           ),
           
+          #This panel allows for a brief explanation for the reason for the creation of this app. It also provides
+          # a disclaimer that as much as we can attempt to have an accurate prediction for the MCAT score, we are
+          # still very much not guaranteed to be right everytime.
           tabPanel("About The Creators", verbatimTextOutput("About The Creators"),
                    h3("About:"),
                    
