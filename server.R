@@ -8,8 +8,6 @@ library(readxl)
 #Opens up our dataset
 MCAT_clean_data <- read_csv("MCAT clean data.csv")
 
-
-
 function(input, output) {
   
   #Boxplot generation function for different types of practice exams
@@ -543,7 +541,7 @@ function(input, output) {
       },
       
       #Creates table borders and allows for one digit after decimel point
-      striped = TRUE, bordered = TRUE, digits = 1)
+      striped = TRUE, bordered = TRUE, digits = 1, align = "c")
     
     #See table 
     output$tableFL2 <- renderTable({
@@ -556,6 +554,4 @@ function(input, output) {
        medianTable <- tibble("Test Subection" = c("Chemistry and Physics", "Critical Analysis and Reading ", "Biology and Biochemistry", "Psychology and Sociology", "Total"), "Predicted Score" = c(medianCP, medianCARS, medianBB, medianPS, practiceScorePredictor("ST", sampleTest = TRUE)), "Number of Data Points" = c(nrow(filterTablecp), nrow(filterTablecars), nrow(filterTablebb), nrow(filterTableps), numberData))
        },
        striped = TRUE, bordered = TRUE, digits = 1)
-     
-    
 }
