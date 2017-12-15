@@ -6,10 +6,12 @@ library(shinythemes)
 library(readxl)
 source("score predictor.R")
 
+#Opens up our dataset
 MCAT_clean_data <- read_csv("MCAT clean data.csv")
 
 
-#CP distribution plot
+#Boxplot generation function for different types of practice exams
+#Currently not working
 function(input, output) {
   
 boxplotCreator <- function(examType)
@@ -79,14 +81,18 @@ boxplotCreator <- function(examType)
     #   guides(fill = FALSE)
   }
   
-  practiceScorePredictor <- function(examType, sampleTest = FALSE)
+  #Generates a predicted test score based on slider input values for subsections
+  practiceScorePredictor <- function(examType, sampleTest = FALSE){
     
-  {
-    errorMessage <<- FALSE
+    #Looks at the CP section and associated slider
     CPtest <<- paste0(examType, ".CP")
     useSliderCp <- paste0(examType, "cp")
+    
+    #Filters data for CP section based on the input score
     filterTablecp <<- MCAT_clean_data %>%
       filter(MCAT_clean_data[CPtest] == input[[useSliderCp]])
+    
+    #If data point is missing returns input value for practice tests or 125 for sample test
     if (nrow(filterTablecp) == 0 & sampleTest == TRUE) {
       filterTablecp <- add_row(filterTablecp, Real.CP = 125)
     }
@@ -94,6 +100,7 @@ boxplotCreator <- function(examType)
       filterTablecp <- add_row(filterTablecp, Real.CP = input[[useSliderCp]])
     }
     
+    #See comments above but now for CARS section
     carstest <- paste0(examType, ".CARS")
     useSliderCars <- paste0(examType, "cars")
     filterTablecars <<- MCAT_clean_data %>%
@@ -105,6 +112,7 @@ boxplotCreator <- function(examType)
       filterTablecars <- add_row(filterTablecars, Real.CARS = input[[useSliderCars]])
     }
     
+    #See CP section
     bbtest <- paste0(examType, ".BB")
     useSliderBb <- paste0(examType, "bb")
     filterTablebb <<- MCAT_clean_data %>%
@@ -116,6 +124,7 @@ boxplotCreator <- function(examType)
       filterTablebb <- add_row(filterTablebb, Real.BB = input[[useSliderBb]])
     }
     
+    #See CP section
     pstest <- paste0(examType, ".PS")
     useSliderPs <- paste0(examType, "ps")
     filterTableps <<- MCAT_clean_data %>%
@@ -127,15 +136,21 @@ boxplotCreator <- function(examType)
       filterTableps <- add_row(filterTableps, Real.PS = input[[useSliderPs]])
     }
     
+    #Collects the median values for the predicted score and assigns them as global variables for later use
     medianCP <<- median(filterTablecp$Real.CP)
     medianCARS <<- median(filterTablecars$Real.CARS)
     medianBB <<- median(filterTablebb$Real.BB)
     medianPS <<- median(filterTableps$Real.PS)
+    
+    #Collects the number of data points for use in the table
     numberData <<- nrow(filterTablecp) + nrow(filterTablecars) + nrow(filterTablebb) + nrow(filterTableps)
+    
+    #Return the predicted score as the sum of all subsections
     median(filterTablecp$Real.CP) + median(filterTablecars$Real.CARS) + median(filterTablebb$Real.BB) + median(filterTableps$Real.PS)
      
   }
   
+  #Creates a slider function that generates sliders based on MCAT values
   inputSlider <- function(examType, subsection, subName){
     sliderName <- paste0(examType, subsection)
     sliderInput(
@@ -148,6 +163,7 @@ boxplotCreator <- function(examType)
      
   }
   
+  #Creates all 4 sliders for all the subsections per exam
   sliderSet <- function(examType, sample = FALSE) {
     if (sample == FALSE){
      fluidRow(
@@ -157,11 +173,15 @@ boxplotCreator <- function(examType)
      inputSlider(examType, "ps", "Psychology and Sociology Score")
     )
     }
+    
+    #Generates a different sliderset for sample tests
     else if (sample == TRUE){
       sliderCP <- paste0(examType, "cp")
       sliderCARS <- paste0(examType, "cars")
       sliderBB <- paste0(examType, "bb")
       sliderPS <- paste0(examType, "ps")
+      
+      #Generates the UI for the sliders
       fluidRow(
                   sliderInput(sliderCP, "Chemistry and Physics Score",
                               min = 0,
@@ -182,9 +202,10 @@ boxplotCreator <- function(examType)
     }
   }
   
+  #Creates a boxplot for practice exam one
   output$BoxPlot1 <- renderPlot({
     
-  
+      #Compiles the filtered data for CP and CARS
       CP.CARS.Table <-bind_rows(
         CPtable <- transmute(MCAT_clean_data, Real.CP = Real.CP, FL1.CP = FL1.CP) %>%
         filter(FL1.CP == input$FL1cp) %>%
@@ -200,6 +221,7 @@ boxplotCreator <- function(examType)
         
         )
       
+      #Compiles the data for BB and PS
       BB.PS.Table <- bind_rows(
         BBtable<- transmute(MCAT_clean_data, Real.BB = Real.BB, FL1.BB = FL1.BB) %>%
         filter(FL1.BB == input$FL1bb) %>%
@@ -214,12 +236,13 @@ boxplotCreator <- function(examType)
           PStable <- add_row(PStable, "subsection" = "Real.PS", "score" = input$FL1ps)}
         )
       
-        
+#Binds the previously compiled data making it tidy        
  MainTable <- bind_rows(CP.CARS.Table, BB.PS.Table)
  
+ #Creates a subsection column for the subsections
  MainTable$Section <- factor(MainTable$subsection)
  
- 
+ #I dont know what this does. Can you comment this Alex?
  median1 <<- aggregate(score ~ Section, MainTable, median)
  
  
@@ -228,7 +251,7 @@ boxplotCreator <- function(examType)
                   panel.background = element_blank(),
                   axis.line = element_line(color = "black"))
 
- 
+ #Generates GG plot with appropriate colors and axis labels along with showing the median score of each subsection on its boxplot
  MainTable$Section <- factor(MainTable$subsection, levels = c("Real.CP", "Real.CARS", "Real.BB", "Real.PS"))
  ggplot(MainTable, aes(Section, score, fill = Section)) + 
    geom_boxplot() + 
@@ -246,7 +269,7 @@ boxplotCreator <- function(examType)
 
 
   })
-  
+  #See BoxPlot1 but this time for practice exam 2 
   output$BoxPlot2 <- renderPlot({
     
     
@@ -309,7 +332,7 @@ boxplotCreator <- function(examType)
     
 
   })
-  
+  #See BoxPlot1 but this time for sample test
   output$BoxPlot3 <- renderPlot({
     
     
@@ -376,31 +399,34 @@ boxplotCreator <- function(examType)
   })
    
     
-
+#Prints the predicted exam score for FL1
     output$tsText <- renderText({
         practiceScorePredictor("FL1")
 
-    })   
+    })
+    
+    #Prints the predicted exam score for FL2
     output$tsTextFL2 <- renderText({
       practiceScorePredictor("FL2")
       
     })
     
+    #Prints the predicted exam score for sample test
     output$tsTextST <- renderText({
       practiceScorePredictor("ST", sampleTest = TRUE)
       
     })
     
-    output$Error <- renderText({
-      if (CPtest == "FL1.CP"){
-        practiceScorePredictor("FL1")
-      }
-      else if (CPtest == "FL2.CP") {
-        practiceScorePredictor("FL2")
-      }
-       if (errorMessage == TRUE){
-       "One or more of your subsection scores did not have any associated data. Our algorithim just returns your input score during its calculation"}
-    })
+    # output$Error <- renderText({
+    #   if (CPtest == "FL1.CP"){
+    #     practiceScorePredictor("FL1")
+    #   }
+    #   else if (CPtest == "FL2.CP") {
+    #     practiceScorePredictor("FL2")
+    #   }
+    #    if (errorMessage == TRUE){
+    #    "One or more of your subsection scores did not have any associated data. Our algorithim just returns your input score during its calculation"}
+    # })
     
     output$test1UI <- renderUI({
       
