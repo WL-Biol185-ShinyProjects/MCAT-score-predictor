@@ -547,11 +547,11 @@ function(input, output) {
     output$tableFL2 <- renderTable({
       medianTable <- tibble("Test Subection" = c("Chemistry and Physics", "Critical Analysis and Reading ", "Biology and Biochemistry", "Psychology and Sociology", "Total"), "Predicted Score" = c(medianCP, medianCARS, medianBB, medianPS, practiceScorePredictor("FL2")), "Number of Data Points" = c(nrow(filterTablecp), nrow(filterTablecars), nrow(filterTablebb), nrow(filterTableps), numberData))
       },
-      striped = TRUE, bordered = TRUE, digits = 1)
+      striped = TRUE, bordered = TRUE, digits = 1, align = "c")
     
     #See table
     output$tableST <- renderTable({
        medianTable <- tibble("Test Subection" = c("Chemistry and Physics", "Critical Analysis and Reading ", "Biology and Biochemistry", "Psychology and Sociology", "Total"), "Predicted Score" = c(medianCP, medianCARS, medianBB, medianPS, practiceScorePredictor("ST", sampleTest = TRUE)), "Number of Data Points" = c(nrow(filterTablecp), nrow(filterTablecars), nrow(filterTablebb), nrow(filterTableps), numberData))
        },
-       striped = TRUE, bordered = TRUE, digits = 1)
+       striped = TRUE, bordered = TRUE, digits = 1, align = "c")
 }
